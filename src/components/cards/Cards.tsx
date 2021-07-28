@@ -1,8 +1,10 @@
-import React from "react";
+import React from 'react';
 
 export const Cards = () => {
 
     return (
-        <div>Cards</div>
+        <div>
+            Cards
+        </div>
     )
 }
