@@ -30,7 +30,7 @@ export const changePasswordTC = (email: string): AppThunk => async dispatch => {
         await changePasswordApi.changePassword(changePasswordModel(email))
         dispatch(changePasswordAC())
     } catch (e) {
-        dispatch(setAppErrorAC(e.response ? e.response.data.error : e.message))
+        dispatch(setAppErrorAC(e.response ? e.response.data.error : e.message, 'error'))
         dispatch(setAppStatusAC('failed'))
     } finally {
         dispatch(setAppStatusAC('idle'))
