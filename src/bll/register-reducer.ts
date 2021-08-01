@@ -9,11 +9,12 @@ export type InitialStateType = typeof initialState
 
 
 export const registerReducer = (state = initialState, action: RegisterActionsType): InitialStateType => {
+
     switch (action.type) {
 
         case 'register/SET-SIGN-UP':
             return {
-                ...state, isRegistered: action.isRegistered
+                ...state, isRegistered: true
             }
 
         default:
@@ -22,21 +23,21 @@ export const registerReducer = (state = initialState, action: RegisterActionsTyp
 };
 
 //actions
-export const setSignUpAC = (isRegistered: boolean) =>
-    ({type: 'register/SET-SIGN-UP', isRegistered} as const)
+export const setSignUpAC = () => ({type: 'register/SET-SIGN-UP'} as const)
 
 
 //thunks
 export const setSignUpTC = (data: RegisterRequestDataType): AppThunk =>
     async dispatch => {
+        debugger
+        dispatch(setAppStatusAC('loading'))
         try {
-            dispatch(setAppStatusAC('loading'))
             await registerApi.register(data)
-            dispatch(setSignUpAC(true))
-            dispatch(setAppStatusAC('succeeded'))
+            dispatch(setSignUpAC())
         } catch (err) {
-            dispatch(setAppErrorAC(err.response ? err.response.data.error : err.message, 'error'))
-            dispatch(setAppStatusAC('failed'))
+            dispatch(setAppErrorAC(err.response ? err.response.data.error : err.message))
+        } finally {
+            dispatch(setAppStatusAC('succeeded'))
         }
     }
 

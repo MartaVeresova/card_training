@@ -5,24 +5,28 @@ import {Cards} from './components/cards/Cards';
 import {Registration} from './components/auth/registration/Registration';
 import {Login} from './components/auth/login/Login';
 import {ForgotPassword} from './components/auth/forgotPassword/ForgotPassword';
-import {Profile} from "./components/profile/Profile";
-import {useDispatch, useSelector} from "react-redux";
-import {AppRootStateType} from "./bll/store";
-import {initializeAppTC} from "./bll/app-reducer";
-import {CircularProgress} from "@material-ui/core";
-import {NewPassword} from "./components/auth/forgotPassword/NewPassword";
-import {logoutTC} from "./bll/auth-reducer";
-import { PrivateRoute } from './features/privateRoute/PrivateRoute';
+import {Profile} from './components/profile/Profile';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppRootStateType} from './bll/store';
+import {initializeAppTC, RequestStatusType} from './bll/app-reducer';
+import {CircularProgress} from '@material-ui/core';
+import {NewPassword} from './components/auth/forgotPassword/NewPassword';
+import {logoutTC} from './bll/auth-reducer';
+import {PrivateRoute} from './features/privateRoute/PrivateRoute';
 import {Error404} from './features/error404/Error404';
 
-function App() {
-
+const App: React.FC = React.memo(() => {
+    console.log('App')
+    debugger
     const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
     const isRegistered = useSelector<AppRootStateType, boolean>(state => state.register.isRegistered)
+    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
+    console.log('Status App - ' + status)
     const dispatch = useDispatch();
 
     useEffect(() => {
+        debugger
         dispatch(initializeAppTC())
     }, [dispatch])
 
@@ -34,6 +38,7 @@ function App() {
     }
 
     const obLogOutClick = () => {
+        debugger
         dispatch(logoutTC())
     }
 
@@ -41,11 +46,11 @@ function App() {
     return (
         <>
             <div>
-                <button><NavLink to='/'>Home</NavLink></button>
-                <button><NavLink to='/registration'>Register</NavLink></button>
-                <button><NavLink to='/login'>Login</NavLink></button>
-                <button><NavLink to='/changepassword'>Change Password</NavLink></button>
-                <button><NavLink to='/profile'>Profile</NavLink></button>
+                <button><NavLink to="/">Home</NavLink></button>
+                <button><NavLink to="/registration">Register</NavLink></button>
+                <button><NavLink to="/login">Login</NavLink></button>
+                <button><NavLink to="/changepassword">Change Password</NavLink></button>
+                <button><NavLink to="/profile">Profile</NavLink></button>
                 <span style={{color: `${isInitialized ? 'green' : 'red'}`}}> (INITIALIZED) </span>
                 <span style={{color: `${isLoggedIn ? 'green' : 'red'}`}}> (LOGIN) </span>
                 <span style={{color: `${isRegistered ? 'green' : 'red'}`}}> (REGISTERED) </span>
@@ -67,11 +72,9 @@ function App() {
             </div>
         </>
     );
-}
+})
 
 export default App;
-
-
 
 
 // <Route path="/admin" render={ () => (isAuth ? ( <> <Route path="/admin/categories" component={() => <CategoriesAdmin setStore={setStore} store={store} setAppSide={setAppSide} />} /> <Route path="/admin/words/:id" component={() => <Words setStore={setStore} store={store} setAppSide={setAppSide} />} /> </> ) : <Redirect to={'/main'}/>)} />

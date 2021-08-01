@@ -28,8 +28,9 @@ import {ErrorSnackbar} from '../../../features/errors/ErrorSnackbar';
 //     rememberMe?: boolean
 // }
 
-export const Login = () => {
-
+export const Login: React.FC = React.memo(() => {
+    console.log('Login')
+    debugger
     const dispatch = useDispatch()
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     const requestStatus = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
@@ -50,6 +51,7 @@ export const Login = () => {
         }),
 
         onSubmit: values => {
+            debugger
             dispatch(loginTC(values));
             formik.resetForm()
         },
@@ -84,9 +86,6 @@ export const Login = () => {
         </div>
     }
 
-    // if (isLoggedIn) {
-    //     return <Redirect to={'/profile'}/>
-    // }
 
     return (
         <Container component="main" maxWidth="xs">
@@ -162,4 +161,4 @@ export const Login = () => {
         </Container>
 
     )
-}
+})

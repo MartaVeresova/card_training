@@ -28,7 +28,7 @@
     "web-vitals": "^1.0.1",
     "yup": "^0.32.9"
   },
-  "homepage": "https://sf-minsk.github.io/team_project",
+  "homepage":"https://MartaVeresova.github.io/my_team_project",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {useFormik} from 'formik';
 import * as Yup from 'yup'
 import {useDispatch, useSelector} from 'react-redux';
@@ -19,10 +19,12 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 
 export const Registration: React.FC = () => {
-
+    console.log('Registration')
+    debugger
     const classes = useStyles();
     const dispatch = useDispatch()
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
+    console.log('Status Registration - ' + status)
     const isRegistered = useSelector<AppRootStateType, boolean>(state => state.register.isRegistered)
 
     const formik = useFormik({
@@ -44,12 +46,14 @@ export const Registration: React.FC = () => {
                 .required('Password is required'),
         }),
         onSubmit: values => {
+            debugger
             dispatch(setSignUpTC(values))
             formik.resetForm()
         },
     })
 
     if (isRegistered) {
+        debugger
         return <Redirect to={'/login'}/>
     }
 
