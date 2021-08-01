@@ -47,7 +47,7 @@ export const Registration: React.FC = () => {
         }),
         onSubmit: values => {
             debugger
-            dispatch(setSignUpTC(values))
+            dispatch(setSignUpTC(values.email, values.password))
             formik.resetForm()
         },
     })

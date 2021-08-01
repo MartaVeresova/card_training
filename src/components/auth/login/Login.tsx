@@ -21,12 +21,6 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import * as Yup from 'yup';
 import {ErrorSnackbar} from '../../../features/errors/ErrorSnackbar';
 
-//
-// type FormikErrorType = {
-//     email?: string
-//     password?: string
-//     rememberMe?: boolean
-// }
 
 export const Login: React.FC = React.memo(() => {
     console.log('Login')
@@ -105,10 +99,8 @@ export const Login: React.FC = React.memo(() => {
                         required
                         fullWidth
                         label="Email Address"
-                        // autoComplete="email"
                         type="email"
-                        // autoFocus
-                        // error={!!formik.errors.email}
+                        autoFocus
                         helperText={formik.touched.email && formik.errors.email}
                         error={formik.touched.email && !!formik.errors.email}
                         {...formik.getFieldProps('email')}
@@ -122,7 +114,6 @@ export const Login: React.FC = React.memo(() => {
                         fullWidth
                         label="Password"
                         type="password"
-                        // error={!!formik.errors.password}
                         helperText={formik.touched.password && formik.errors.password}
                         error={formik.touched.password && !!formik.errors.password}
                         {...formik.getFieldProps('password')}

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {NavLink, Redirect, Route, Switch} from 'react-router-dom';
 import './App.css';
 import {Cards} from './components/cards/Cards';
@@ -30,16 +30,16 @@ const App: React.FC = React.memo(() => {
         dispatch(initializeAppTC())
     }, [dispatch])
 
+    const obLogOutClick = useCallback(() => {
+        debugger
+        dispatch(logoutTC())
+    },[dispatch])
+
     if (!isInitialized) {
         return <div
             style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
             <CircularProgress/>
         </div>
-    }
-
-    const obLogOutClick = () => {
-        debugger
-        dispatch(logoutTC())
     }
 
 
