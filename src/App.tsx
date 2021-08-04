@@ -1,7 +1,6 @@
 import React, {useCallback, useEffect} from 'react';
 import {NavLink, Redirect, Route, Switch} from 'react-router-dom';
 import './App.css';
-import {Cards} from './components/cards/Cards';
 import {Registration} from './components/auth/registration/Registration';
 import {Login} from './components/auth/login/Login';
 import {ForgotPassword} from './components/auth/forgotPassword/ForgotPassword';
@@ -14,26 +13,23 @@ import {NewPassword} from './components/auth/forgotPassword/NewPassword';
 import {logoutTC} from './bll/auth-reducer';
 import {PrivateRoute} from './features/privateRoute/PrivateRoute';
 import {Error404} from './features/error404/Error404';
+import {Main} from './components/main/Main';
+import {Header} from './components/header/Header';
 
 const App: React.FC = React.memo(() => {
-    console.log('App')
-    debugger
+
     const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
     const isRegistered = useSelector<AppRootStateType, boolean>(state => state.register.isRegistered)
-    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
-    console.log('Status App - ' + status)
     const dispatch = useDispatch();
 
     useEffect(() => {
-        debugger
         dispatch(initializeAppTC())
     }, [dispatch])
 
     const obLogOutClick = useCallback(() => {
-        debugger
         dispatch(logoutTC())
-    },[dispatch])
+    }, [dispatch])
 
     if (!isInitialized) {
         return <div
@@ -47,6 +43,7 @@ const App: React.FC = React.memo(() => {
         <>
             <div>
                 <button><NavLink to="/">Home</NavLink></button>
+                <button><NavLink to="/">Main</NavLink></button>
                 <button><NavLink to="/registration">Register</NavLink></button>
                 <button><NavLink to="/login">Login</NavLink></button>
                 <button><NavLink to="/changepassword">Change Password</NavLink></button>
@@ -57,12 +54,15 @@ const App: React.FC = React.memo(() => {
                 <button onClick={obLogOutClick}>LOGOUT</button>
             </div>
 
+            <Header/>
             <div>
                 <Switch>
-                    <PrivateRoute exact path="/" isLoggedIn={isLoggedIn} render={() => <Cards/>} redirectTo="/login"/>
-                    <PrivateRoute path="/profile" isLoggedIn={isLoggedIn} render={() => <Profile/>} redirectTo="/login"/>
+                    <PrivateRoute exact path="/" isLoggedIn={isLoggedIn} render={() => <Main/>} redirectTo="/login"/>
+                    <PrivateRoute path="/profile" isLoggedIn={isLoggedIn} render={() => <Profile/>}
+                                  redirectTo="/login"/>
                     <PrivateRoute path="/login" isLoggedIn={!isLoggedIn} render={() => <Login/>} redirectTo="/"/>
-                    <PrivateRoute path="/registration" isLoggedIn={!isLoggedIn} render={() => <Registration/>} redirectTo="/"/>
+                    <PrivateRoute path="/registration" isLoggedIn={!isLoggedIn} render={() => <Registration/>}
+                                  redirectTo="/"/>
 
                     <Route exact path={'/changepassword'} render={() => <ForgotPassword/>}/>
                     <Route path={'/changepassword/newpassword/:token?'} render={() => <NewPassword/>}/>

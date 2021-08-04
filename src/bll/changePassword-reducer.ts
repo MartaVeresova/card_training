@@ -23,7 +23,6 @@ export const changePasswordAC = () => ({type: 'changePassword/CHANGE-PASSWORD'} 
 
 //THUNK creators
 export const changePasswordTC = (email: string): AppThunk => async dispatch => {
-    debugger
     dispatch(setAppStatusAC('loading'))
     try {
         await changePasswordApi.changePassword(changePasswordModel(email))

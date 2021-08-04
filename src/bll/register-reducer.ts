@@ -29,7 +29,6 @@ export const setSignUpAC = () => ({type: 'register/SET-SIGN-UP'} as const)
 //thunks
 export const setSignUpTC = (email: string, password: string): AppThunk =>
     async dispatch => {
-        debugger
         dispatch(setAppStatusAC('loading'))
         try {
             await registerApi.register(email, password)

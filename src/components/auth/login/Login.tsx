@@ -23,8 +23,7 @@ import {ErrorSnackbar} from '../../../features/errors/ErrorSnackbar';
 
 
 export const Login: React.FC = React.memo(() => {
-    console.log('Login')
-    debugger
+
     const dispatch = useDispatch()
     const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
     const requestStatus = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
@@ -45,7 +44,6 @@ export const Login: React.FC = React.memo(() => {
         }),
 
         onSubmit: values => {
-            debugger
             dispatch(loginTC(values));
             formik.resetForm()
         },
