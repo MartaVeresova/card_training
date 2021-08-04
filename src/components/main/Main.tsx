@@ -34,10 +34,10 @@ import Button from '@material-ui/core/Button';
 import {Theme} from '@material-ui/core/styles/createTheme';
 
 
-type ValueToSortType = 'name' | 'cardsCount' | 'updated' | 'created'
 
-export const Main = () => {
+export const Main: React.FC = () => {
 
+    const classes = useStyles();
     const dispatch = useDispatch()
     const cards = useSelector<AppRootStateType, Array<CardsPackDataType>>(state => state.cards)
 
@@ -47,7 +47,7 @@ export const Main = () => {
     const [page, setPage] = useState(0)
     const [cardsPerPage, setCardsPerPage] = useState(5)
     let [sortPacks, setSortPacks] = useState<0 | 1>(0)
-    const [valueToSort, setValueToSort] = useState<ValueToSortType>('updated')
+
 
     useEffect(() => {
         dispatch(setCardsPackTC(1, 5000, 0, 'updated'))
@@ -60,30 +60,6 @@ export const Main = () => {
     const onAllButtonClick = () => {
         setMyButtonClicked(false)
     }
-
-    const classes = makeStyles(() => ({
-        paper: {
-            marginTop: '20px',
-            display: 'flex',
-            flexDirection: 'row',
-            minHeight: '800px',
-            minWidth: '1000px',
-        },
-        navBar: {
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            width: '240px',
-            backgroundColor: 'lightblue',
-            borderRadius: '4px 0px 0px 4px',
-        },
-        body: {
-            margin: '10px 15px 10px 15px',
-        },
-        table: {
-            minWidth: 700,
-        },
-    }))()
 
     const changeSliderValue = (event: ChangeEvent<{}>, newValue: number | number[]) => {
         setSliderValue(newValue as number[])
@@ -115,10 +91,10 @@ export const Main = () => {
     const handleChangeRowsPerPage = (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         let currentCardsPerPage = parseInt(event.target.value, 10)
         setCardsPerPage(currentCardsPerPage)
-        dispatch(setCardsPackTC(1, currentCardsPerPage, sortPacks, 'updated'))
+        dispatch(setCardsPackTC(1, currentCardsPerPage, sortPacks, 'updated')) //нужно убрать хардкод 'updated'
     }
 
-    const onClickNameHandler = () => {
+    const onClickSortHandler = (sortValue: string) => {
         let value = sortPacks
         if (sortPacks === 0) {
             setSortPacks(1)
@@ -127,19 +103,7 @@ export const Main = () => {
             setSortPacks(0)
             value = 0
         }
-        dispatch(setCardsPackTC(page, cardsPerPage, value, 'name'))
-    }
-
-    const onClickCardsHandler = () => {
-        dispatch(setCardsPackTC(page, cardsPerPage, sortPacks, 'cardsCount'))
-    }
-
-    const onClickLastUpdatedHandler = () => {
-        dispatch(setCardsPackTC(page, cardsPerPage, sortPacks, 'updated'))
-    }
-
-    const onClickCreatedHandler = () => {
-        dispatch(setCardsPackTC(page, cardsPerPage, sortPacks, 'created'))
+        dispatch(setCardsPackTC(page, cardsPerPage, value, sortValue))
     }
 
 
@@ -201,11 +165,11 @@ export const Main = () => {
                         <Table className={classes.table} aria-label="custom pagination table">
                             <TableHead>
                                 <TableRow>
-                                    <StyledTableCell onClick={onClickNameHandler}>Name</StyledTableCell>
-                                    <StyledTableCell onClick={onClickCardsHandler} align="right">Cards</StyledTableCell>
-                                    <StyledTableCell onClick={onClickLastUpdatedHandler} align="right">Last
+                                    <StyledTableCell onClick={() => onClickSortHandler('name')}>Name</StyledTableCell>
+                                    <StyledTableCell onClick={() => onClickSortHandler('cardsCount')} align="right">Cards</StyledTableCell>
+                                    <StyledTableCell onClick={() => onClickSortHandler('updated')} align="right">Last
                                         Updated</StyledTableCell>
-                                    <StyledTableCell onClick={onClickCreatedHandler} align="right">Created
+                                    <StyledTableCell onClick={() => onClickSortHandler('created')} align="right">Created
                                         By</StyledTableCell>
                                     <StyledTableCell align="right">Actions</StyledTableCell>
                                 </TableRow>
@@ -229,6 +193,8 @@ export const Main = () => {
                             <TableFooter>
                                 <TableRow>
                                     <TablePagination
+                                        //results={sortPacks}
+                                        //property={sortValue}
                                         rowsPerPageOptions={[5, 10, 25, {label: 'All', value: -1}]}
                                         colSpan={3}
                                         count={cards.length}
@@ -255,6 +221,31 @@ export const Main = () => {
     )
 }
 
+const useStyles = makeStyles(() => ({
+    paper: {
+        marginTop: '20px',
+        display: 'flex',
+        flexDirection: 'row',
+        minHeight: '800px',
+        minWidth: '1000px',
+    },
+    navBar: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        width: '240px',
+        backgroundColor: 'lightblue',
+        borderRadius: '4px 0px 0px 4px',
+    },
+    body: {
+        margin: '10px 15px 10px 15px',
+    },
+    table: {
+        minWidth: 700,
+    },
+}))
+
+type SortValueType = 'name' | 'cardsCount' | 'updated' | 'created'
 
 type TablePaginationActionsProps = {
     count: number
