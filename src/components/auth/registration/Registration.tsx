@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {useFormik} from 'formik';
 import * as Yup from 'yup'
 import {useDispatch, useSelector} from 'react-redux';
@@ -9,7 +9,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import {AppRootStateType} from '../../../bll/store';
-import {RequestStatusType} from '../../../bll/app-reducer';
+import {AppStatusType} from '../../../bll/app-reducer';
 import {Redirect} from 'react-router-dom';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import Container from '@material-ui/core/Container';
@@ -19,10 +19,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 
 export const Registration: React.FC = () => {
-
     const classes = useStyles();
     const dispatch = useDispatch()
-    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
+    const status = useSelector<AppRootStateType, AppStatusType>(state => state.app.status)
     const isRegistered = useSelector<AppRootStateType, boolean>(state => state.register.isRegistered)
 
     const formik = useFormik({
@@ -37,7 +36,7 @@ export const Registration: React.FC = () => {
                 .required('Email is required'),
             password: Yup.string()
                 .min(8, 'Must be 8 characters or more')
-                .max(15, 'Must be 15 characters or less')
+                .max(20, 'Must be 20 characters or less')
                 .required('Password is required'),
             confirmPassword: Yup.string()
                 .oneOf([Yup.ref('password')], 'Passwords must match')

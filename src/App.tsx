@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {NavLink, Redirect, Route, Switch} from 'react-router-dom';
 import './App.css';
 import {Registration} from './components/auth/registration/Registration';
@@ -7,16 +7,17 @@ import {ForgotPassword} from './components/auth/forgotPassword/ForgotPassword';
 import {Profile} from './components/profile/Profile';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './bll/store';
-import {initializeAppTC, RequestStatusType} from './bll/app-reducer';
+import {initializeAppTC} from './bll/app-reducer';
 import {CircularProgress} from '@material-ui/core';
 import {NewPassword} from './components/auth/forgotPassword/NewPassword';
 import {logoutTC} from './bll/auth-reducer';
 import {PrivateRoute} from './features/privateRoute/PrivateRoute';
 import {Error404} from './features/error404/Error404';
-import {Main} from './components/main/Main';
 import {Header} from './components/header/Header';
+import {Pack} from './components/main/pack/Pack';
+import {PacksList} from './components/main/packsList/PacksList';
 
-const App: React.FC = React.memo(() => {
+function App() {
 
     const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
@@ -27,15 +28,15 @@ const App: React.FC = React.memo(() => {
         dispatch(initializeAppTC())
     }, [dispatch])
 
-    const obLogOutClick = useCallback(() => {
-        dispatch(logoutTC())
-    }, [dispatch])
-
     if (!isInitialized) {
         return <div
             style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
             <CircularProgress/>
         </div>
+    }
+
+    const obLogOutClick = () => {
+        dispatch(logoutTC())
     }
 
 
@@ -57,7 +58,11 @@ const App: React.FC = React.memo(() => {
             <Header/>
             <div>
                 <Switch>
-                    <PrivateRoute exact path="/" isLoggedIn={isLoggedIn} render={() => <Main/>} redirectTo="/login"/>
+                    {/*<PrivateRoute exact path="/" isLoggedIn={isLoggedIn} render={() => <Main/>} redirectTo="/login"/>*/}
+                    <PrivateRoute exact path="/" isLoggedIn={isLoggedIn} render={() => <PacksList/>}
+                                  redirectTo="/login"/>
+                    <PrivateRoute exact path='/pack/:id' isLoggedIn={isLoggedIn} render={() => <Pack/>}
+                                  redirectTo="/login"/>
                     <PrivateRoute path="/profile" isLoggedIn={isLoggedIn} render={() => <Profile/>}
                                   redirectTo="/login"/>
                     <PrivateRoute path="/login" isLoggedIn={!isLoggedIn} render={() => <Login/>} redirectTo="/"/>
@@ -72,7 +77,7 @@ const App: React.FC = React.memo(() => {
             </div>
         </>
     );
-})
+}
 
 export default App;
 

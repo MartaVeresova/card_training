@@ -7,8 +7,7 @@ const initialState = {
     changeProcess: false
 }
 
-export const changePasswordReducer = (state = initialState, action: ChangePasswordActionsType): InitialStateType => {
-
+export const changePasswordReducer = (state: initialStateType = initialState, action: ChangePasswordActionsType) => {
     switch (action.type) {
         case 'changePassword/CHANGE-PASSWORD':
             return {...state, changeProcess: true}
@@ -18,8 +17,11 @@ export const changePasswordReducer = (state = initialState, action: ChangePasswo
 }
 
 // Action creators
-export const changePasswordAC = () => ({type: 'changePassword/CHANGE-PASSWORD'} as const)
-
+export const changePasswordAC = () => {
+    return {
+        type: 'changePassword/CHANGE-PASSWORD',
+    } as const
+}
 
 //THUNK creators
 export const changePasswordTC = (email: string): AppThunk => async dispatch => {
@@ -29,13 +31,14 @@ export const changePasswordTC = (email: string): AppThunk => async dispatch => {
         dispatch(changePasswordAC())
     } catch (e) {
         dispatch(setAppErrorAC(e.response ? e.response.data.error : e.message))
+        dispatch(setAppStatusAC('failed'))
     } finally {
-        dispatch(setAppStatusAC('succeeded'))
+        dispatch(setAppStatusAC('idle'))
     }
 }
 
 // Types
-type InitialStateType = typeof initialState
+type initialStateType = typeof initialState
 export type ChangePasswordActionsType =
     | ReturnType<typeof changePasswordAC>
 

@@ -16,17 +16,17 @@ import {useDispatch, useSelector} from 'react-redux';
 import {loginTC} from '../../../bll/auth-reducer';
 import {AppRootStateType} from '../../../bll/store';
 import {Link as RouterLink} from 'react-router-dom'
-import {RequestStatusType} from '../../../bll/app-reducer';
+import {AppStatusType} from '../../../bll/app-reducer';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as Yup from 'yup';
 import {ErrorSnackbar} from '../../../features/errors/ErrorSnackbar';
 
 
-export const Login: React.FC = React.memo(() => {
+export const Login = () => {
 
     const dispatch = useDispatch()
-    const status = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
-    const requestStatus = useSelector<AppRootStateType, RequestStatusType>(state => state.app.status)
+    const status = useSelector<AppRootStateType, AppStatusType>(state => state.app.status)
+    const requestStatus = useSelector<AppRootStateType, AppStatusType>(state => state.app.status)
 
     const formik = useFormik({
         initialValues: {
@@ -97,8 +97,10 @@ export const Login: React.FC = React.memo(() => {
                         required
                         fullWidth
                         label="Email Address"
+                        // autoComplete="email"
                         type="email"
-                        autoFocus
+                        // autoFocus
+                        // error={!!formik.errors.email}
                         helperText={formik.touched.email && formik.errors.email}
                         error={formik.touched.email && !!formik.errors.email}
                         {...formik.getFieldProps('email')}
@@ -112,6 +114,7 @@ export const Login: React.FC = React.memo(() => {
                         fullWidth
                         label="Password"
                         type="password"
+                        // error={!!formik.errors.password}
                         helperText={formik.touched.password && formik.errors.password}
                         error={formik.touched.password && !!formik.errors.password}
                         {...formik.getFieldProps('password')}
@@ -148,6 +151,5 @@ export const Login: React.FC = React.memo(() => {
             </div>
             <ErrorSnackbar/>
         </Container>
-
     )
-})
+}

@@ -9,7 +9,6 @@ export type InitialStateType = typeof initialState
 
 
 export const registerReducer = (state = initialState, action: RegisterActionsType): InitialStateType => {
-
     switch (action.type) {
 
         case 'register/SET-SIGN-UP':
@@ -23,7 +22,8 @@ export const registerReducer = (state = initialState, action: RegisterActionsTyp
 };
 
 //actions
-export const setSignUpAC = () => ({type: 'register/SET-SIGN-UP'} as const)
+export const setSignUpAC = () =>
+    ({type: 'register/SET-SIGN-UP'} as const)
 
 
 //thunks
@@ -33,10 +33,10 @@ export const setSignUpTC = (email: string, password: string): AppThunk =>
         try {
             await registerApi.register(email, password)
             dispatch(setSignUpAC())
+            dispatch(setAppStatusAC('succeeded'))
         } catch (err) {
             dispatch(setAppErrorAC(err.response ? err.response.data.error : err.message))
-        } finally {
-            dispatch(setAppStatusAC('succeeded'))
+            dispatch(setAppStatusAC('failed'))
         }
     }
 
