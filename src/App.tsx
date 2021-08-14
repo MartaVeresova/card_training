@@ -13,7 +13,7 @@ import {NewPassword} from './components/auth/NewPassword';
 import {PrivateRoute} from './features/privateRoute/PrivateRoute';
 import {Error404} from './features/error404/Error404';
 import {Header} from './components/header/Header';
-import {Pack} from './components/main/pack/Pack';
+import {Cards} from './components/main/cards/Cards';
 import {PacksList} from './components/main/packsList/PacksList';
 import {logoutTC} from './bll/auth-reducer';
 
@@ -60,7 +60,7 @@ const App: React.FC = React.memo(() => {
                 <Switch>
                     <PrivateRoute exact path="/" isLoggedIn={isLoggedIn} render={() => <PacksList/>}
                                   redirectTo="/login"/>
-                    <PrivateRoute exact path="/pack/:id" isLoggedIn={isLoggedIn} render={() => <Pack/>}
+                    <PrivateRoute exact path="/pack/:id" isLoggedIn={isLoggedIn} render={() => <Cards/>}
                                   redirectTo="/login"/>
                     <PrivateRoute path="/profile" isLoggedIn={isLoggedIn} render={() => <Profile/>}
                                   redirectTo="/login"/>

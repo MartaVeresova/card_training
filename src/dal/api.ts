@@ -155,7 +155,7 @@ export type PacksType = {
     __v: number
 }
 
-//create pack type
+//create cards type
 export type CreatePackRequestType = {
     cardsPack: PackDataType
 }
@@ -170,13 +170,13 @@ export type PackDataType = {
     type?: string
 }
 
-//update pack type
+//update cards type
 export type UpdatePackRequestType = {
     _id: string,
     name?: string,
 }
 
-//get pack type
+//get cards type
 export type CardsRequestType = {
     cardAnswer?: string
     cardQuestion?: string

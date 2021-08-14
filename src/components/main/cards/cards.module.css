@@ -1,0 +1,17 @@
+.arrowBackToPacks {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+}
+.titleBackToPacks {
+    margin-left: 10px;
+}
+.packListHeading {
+    font-size: 30px;
+    font-weight: bold;
+    overflow-wrap: break-word;
+}
+.inputButtonSection {
+    display: flex;
+    justify-content: space-between;
+}
