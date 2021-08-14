@@ -1,26 +1,20 @@
 import {applyMiddleware, combineReducers, createStore} from 'redux';
 import thunk, {ThunkAction} from 'redux-thunk'
-import {authReducer, LoginActionsType} from './auth-reducer';
-import {RegisterActionsType, registerReducer} from './register-reducer';
-import {ChangePasswordActionsType, changePasswordReducer} from './changePassword-reducer';
+import {authReducer, AuthActionsType} from './auth-reducer';
 import {AppActionsType, appReducer} from './app-reducer';
 import {profileReducer} from './profile-reducer';
-import {setNewPasswordActionTypes, setNewPasswordReducer} from './setNewPassword-reducer';
 import {PacksActionsType, packsReducer} from './packs-reducer';
 import {loadState} from '../utils/localStorage-util';
-import {PackActionsType, packReducer} from './pack-reducer';
+import {PackActionsType, cardsReducer} from './cards-reducer';
 import {CardsForLearnActionsType, cardsForLearnReducer} from './learn-reducer';
 
 
 const rootReducers = combineReducers({
-    login: authReducer,
-    register: registerReducer,
-    changePassword: changePasswordReducer,
-    setNewPassword: setNewPasswordReducer,
+    auth: authReducer,
     app: appReducer,
     profile: profileReducer,
     packs: packsReducer,
-    pack: packReducer,
+    cards: cardsReducer,
     cardsForLearn: cardsForLearnReducer,
 });
 
@@ -28,10 +22,7 @@ export const store = createStore(rootReducers, loadState(), applyMiddleware(thun
 
 export type AppRootStateType = ReturnType<typeof rootReducers>
 export type AppRootActionsType =
-    | LoginActionsType
-    | RegisterActionsType
-    | ChangePasswordActionsType
-    | setNewPasswordActionTypes
+    | AuthActionsType
     | AppActionsType
     | PacksActionsType
     | PackActionsType

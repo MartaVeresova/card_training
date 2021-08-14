@@ -1,28 +1,30 @@
 import React, {useEffect} from 'react';
 import {NavLink, Redirect, Route, Switch} from 'react-router-dom';
 import './App.css';
-import {Registration} from './components/auth/registration/Registration';
-import {Login} from './components/auth/login/Login';
-import {ForgotPassword} from './components/auth/forgotPassword/ForgotPassword';
+import {Registration} from './components/auth/Registration';
+import {Login} from './components/auth/Login';
+import {ForgotPassword} from './components/auth/ForgotPassword';
 import {Profile} from './components/profile/Profile';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from './bll/store';
 import {initializeAppTC} from './bll/app-reducer';
 import {CircularProgress} from '@material-ui/core';
-import {NewPassword} from './components/auth/forgotPassword/NewPassword';
-import {logoutTC} from './bll/auth-reducer';
+import {NewPassword} from './components/auth/NewPassword';
 import {PrivateRoute} from './features/privateRoute/PrivateRoute';
 import {Error404} from './features/error404/Error404';
 import {Header} from './components/header/Header';
 import {Pack} from './components/main/pack/Pack';
 import {PacksList} from './components/main/packsList/PacksList';
+import {logoutTC} from './bll/auth-reducer';
 
-function App() {
 
-    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
-    const isRegistered = useSelector<AppRootStateType, boolean>(state => state.register.isRegistered)
+const App: React.FC = React.memo(() => {
+
     const dispatch = useDispatch();
+    const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
+    const isRegistered = useSelector<AppRootStateType, boolean>(state => state.auth.isRegistered)
+
 
     useEffect(() => {
         dispatch(initializeAppTC())
@@ -30,11 +32,10 @@ function App() {
 
     if (!isInitialized) {
         return <div
-            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+            style={{position: 'fixed', top: '40%', textAlign: 'center', width: '100%'}}>
             <CircularProgress/>
         </div>
     }
-
     const obLogOutClick = () => {
         dispatch(logoutTC())
     }
@@ -54,18 +55,17 @@ function App() {
                 <span style={{color: `${isRegistered ? 'green' : 'red'}`}}> (REGISTERED) </span>
                 <button onClick={obLogOutClick}>LOGOUT</button>
             </div>
-
             <Header/>
             <div>
                 <Switch>
-                    {/*<PrivateRoute exact path="/" isLoggedIn={isLoggedIn} render={() => <Main/>} redirectTo="/login"/>*/}
                     <PrivateRoute exact path="/" isLoggedIn={isLoggedIn} render={() => <PacksList/>}
                                   redirectTo="/login"/>
-                    <PrivateRoute exact path='/pack/:id' isLoggedIn={isLoggedIn} render={() => <Pack/>}
+                    <PrivateRoute exact path="/pack/:id" isLoggedIn={isLoggedIn} render={() => <Pack/>}
                                   redirectTo="/login"/>
                     <PrivateRoute path="/profile" isLoggedIn={isLoggedIn} render={() => <Profile/>}
                                   redirectTo="/login"/>
-                    <PrivateRoute path="/login" isLoggedIn={!isLoggedIn} render={() => <Login/>} redirectTo="/"/>
+                    <PrivateRoute path="/login" isLoggedIn={!isLoggedIn} render={() => <Login/>}
+                                  redirectTo="/"/>
                     <PrivateRoute path="/registration" isLoggedIn={!isLoggedIn} render={() => <Registration/>}
                                   redirectTo="/"/>
 
@@ -76,10 +76,7 @@ function App() {
                 </Switch>
             </div>
         </>
-    );
-}
+    )
+})
 
 export default App;
-
-
-// <Route path="/admin" render={ () => (isAuth ? ( <> <Route path="/admin/categories" component={() => <CategoriesAdmin setStore={setStore} store={store} setAppSide={setAppSide} />} /> <Route path="/admin/words/:id" component={() => <Words setStore={setStore} store={store} setAppSide={setAppSide} />} /> </> ) : <Redirect to={'/main'}/>)} />

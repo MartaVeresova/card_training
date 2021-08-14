@@ -10,15 +10,15 @@ import {useHistory, useLocation} from 'react-router-dom';
 import {useStyles} from '../main/styles';
 
 
-export const Header = () => {
+export const Header: React.FC = React.memo(() => {
 
     const classes = useStyles()
     const dispatch = useDispatch()
-    let history = useHistory()
-    let location = useLocation()
+    const history = useHistory()
+    const location = useLocation()
+    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
 
-    const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.login.isLoggedIn)
-    let [value, setValue] = useState(0)
+    const [value, setValue] = useState(0)
 
     useEffect(() => {
         if (location.pathname === '/profile') {
@@ -33,7 +33,7 @@ export const Header = () => {
         setValue(0)
         history.push('/')
     }
-    const onProfileClickHndler = () => {
+    const onProfileClickHandler = () => {
         setValue(1)
         history.push('/profile')
     }
@@ -42,27 +42,32 @@ export const Header = () => {
     }
 
     return <>
-        <AppBar className={classes.app}>
-
-            <Typography className={classes.typo} variant={"h6"}>
+        <AppBar className={classes.headerApp}>
+            <Typography className={classes.headerTypo} variant={'h6'}>
                 CARDS
             </Typography>
-            {isLoggedIn ?
-                <>
-                    <Tabs className={classes.tab}
-                          value={value}
-                          centered
-                    >
-                        <Tab onClick={onPacksClickHandler} label={'Packs List'} icon={<DynamicFeedOutlined/>}/>
-                        <Tab onClick={onProfileClickHndler} label={'Profile'} icon={<AccountCircleOutlined/>}/>
-                    </Tabs>
-                    <Button className={classes.logoutButton} onClick={obLogOutClick}
-                            variant="outlined"
-                    >
-                        LOGOUT
-                    </Button>
-                </> : null
+            {
+                isLoggedIn ?
+                    <>
+                        <Tabs
+                            value={value}
+                            centered
+                        >
+                            <Tab onClick={onPacksClickHandler}
+                                 label={'Packs List'}
+                                 icon={<DynamicFeedOutlined/>}/>
+                            <Tab onClick={onProfileClickHandler}
+                                 label={'Profile'}
+                                 icon={<AccountCircleOutlined/>}/>
+                        </Tabs>
+                        <Button className={classes.headerLogoutButton}
+                                onClick={obLogOutClick}
+                                variant="outlined"
+                        >
+                            LOGOUT
+                        </Button>
+                    </> : null
             }
         </AppBar>
     </>
-}
+})
