@@ -1,0 +1,6 @@
+.footerPage {
+    display: flex;
+    height: 53px;
+    margin-left: 10px;
+    align-items: center;
+}

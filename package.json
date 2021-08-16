@@ -2,6 +2,7 @@
   "name": "team_project",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://MartaVeresova.github.io/card_training",
   "dependencies": {
     "@material-ui/core": "^4.12.2",
     "@material-ui/icons": "^4.11.2",
@@ -28,7 +29,6 @@
     "web-vitals": "^1.0.1",
     "yup": "^0.32.9"
   },
-  "homepage":"https://MartaVeresova.github.io/my_team_project",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

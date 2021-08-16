@@ -4,7 +4,6 @@ import * as Yup from 'yup'
 import {useDispatch, useSelector} from 'react-redux';
 import {ErrorSnackbar} from '../../features/errors/ErrorSnackbar';
 import Button from '@material-ui/core/Button';
-import CircularProgress from '@material-ui/core/CircularProgress';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import {AppRootStateType} from '../../bll/store';

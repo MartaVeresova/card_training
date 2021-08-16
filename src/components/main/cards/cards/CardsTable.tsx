@@ -5,7 +5,7 @@ import React, {ChangeEvent, MouseEvent, useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../../../bll/store';
 import {useStyles} from '../../styles';
-import {deleteCardTC, editCardTC, CardsInitialStateType, resetPackAC, setPackTC} from '../../../../bll/cards-reducer';
+import {CardsInitialStateType, deleteCardTC, editCardTC, resetPackAC, setPackTC} from '../../../../bll/cards-reducer';
 import {trimmedString} from '../../../../utils/trimmedString-util';
 import {updateDate} from '../../../../utils/updateDate-util';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,9 +14,10 @@ import {TablePaginationActions} from '../../commonComponents/TablePagination';
 import TableFooter from '@material-ui/core/TableFooter';
 import Table from '@material-ui/core/Table';
 import {useLocation} from 'react-router-dom';
-import {CardsTableActions} from "./CardsTableActions";
-import {EditCardRequestType} from "../../../../dal/api";
-import {TableSortLabel} from "@material-ui/core";
+import {CardsTableActions} from './CardsTableActions';
+import {EditCardRequestType} from '../../../../dal/api';
+import {TableSortLabel} from '@material-ui/core';
+import s from '../Cards.module.css'
 
 
 export const CardsTable = React.memo(({labelRowsPerPage}: PackNameTableProps) => {
@@ -27,6 +28,21 @@ export const CardsTable = React.memo(({labelRowsPerPage}: PackNameTableProps) =>
     const idUser = useSelector<AppRootStateType, string>(state => state.profile._id)
     const packID = useLocation().pathname.substring(6)
 
+
+    useEffect(() => {
+        return function () {
+            dispatch(resetPackAC())
+        }
+    }, [dispatch])
+
+    const handleChangePage = useCallback((e: MouseEvent<HTMLButtonElement> | null, newPage: number) => {
+        dispatch(setPackTC({cardsPack_id: packID, page: newPage + 1}))
+    }, [dispatch, packID])
+
+    const editCardHandler = useCallback((data: EditCardRequestType) => {
+        dispatch(editCardTC({...data}))
+    }, [])
+
     const onClickSortHandler = (sortValue: SortByType) => {
         if (cards.sortCardDirection === 0) {
             dispatch(setPackTC({cardsPack_id: packID, sortCards: '1' + sortValue}))
@@ -35,26 +51,12 @@ export const CardsTable = React.memo(({labelRowsPerPage}: PackNameTableProps) =>
         }
     }
 
-    useEffect(() => {
-        return function () {
-            dispatch(resetPackAC())
-        }
-    }, [dispatch])
-
-
-    const handleChangePage = useCallback((e: MouseEvent<HTMLButtonElement> | null, newPage: number) => {
-        dispatch(setPackTC({cardsPack_id: packID, page: newPage + 1}))
-    }, [dispatch, packID])
+    const deleteCardHandler = useCallback((cardId: string) => {
+        dispatch(deleteCardTC(cards.cardsPack_id, cardId))
+    }, [])
 
     const handleChangePageCount = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         dispatch(setPackTC({cardsPack_id: packID, pageCount: parseInt(e.target.value, 10)}))
-    }
-
-    const deleteCardHandler = (cardId: string) => {
-        dispatch(deleteCardTC(cards.cardsPack_id, cardId))
-    }
-    const editCardHandler = (data: EditCardRequestType) => {
-        dispatch(editCardTC({...data}))
     }
 
 
@@ -123,7 +125,7 @@ export const CardsTable = React.memo(({labelRowsPerPage}: PackNameTableProps) =>
             </TableBody>
             <TableFooter>
                 <TableRow>
-                    <td className={classes.footerPage}>
+                    <td className={s.footerPage}>
                         Page: {cards.page} (Total:{Math.ceil(cards.cardsTotalCount / cards.pageCount)})
                     </td>
                     <TablePagination

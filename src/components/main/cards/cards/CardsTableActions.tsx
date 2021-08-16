@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
 import {EditCardModal} from '../../commonComponents/modal/editCardModal/EditCardModal';
@@ -8,10 +8,14 @@ import {useStyles} from '../../styles';
 
 export const CardsTableActions = React.memo((props: PackTableActionsPropsType) => {
 
-    const classes = useStyles()
     const {deleteCard, editCard, card} = props
 
+    const classes = useStyles()
     const [editPackModal, setEditPackModal] = useState(false)
+
+    const closeEditPackModal = useCallback(() => {
+        setEditPackModal(false)
+    }, [])
 
     const onDeleteButtonClick = () => {
         deleteCard(card._id)
@@ -19,9 +23,7 @@ export const CardsTableActions = React.memo((props: PackTableActionsPropsType) =
     const openEditPackModal = () => {
         setEditPackModal(true)
     }
-    const closeEditPackModal = () => {
-        setEditPackModal(false)
-    }
+
 
     return (
         <TableCell align="right" className={classes.containerActionsButton}>
