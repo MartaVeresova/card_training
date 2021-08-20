@@ -6,7 +6,7 @@ export const changePasswordModel = (email: string) => {
             `<div style="background-color: #9bf8d2; padding: 15px">
                     password recovery link:
 <!--                        <a href='http://localhost:3000/#/changepassword/newpassword/$token$'>click</a>-->
-                        <a href='https://MartaVeresova.github.io/card_training/#/changepassword/newpassword/$token$'>click</a>
+                        <a href='https://MartaVeresova.github.io/learning_cards/#/changepassword/newpassword/$token$'>click</a>
                 </div>`,
     }
 }
