@@ -25,7 +25,6 @@ const App: React.FC = React.memo(() => {
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
     const isRegistered = useSelector<AppRootStateType, boolean>(state => state.auth.isRegistered)
 
-
     useEffect(() => {
         dispatch(initializeAppTC())
     }, [dispatch])
@@ -39,7 +38,6 @@ const App: React.FC = React.memo(() => {
     const obLogOutClick = () => {
         dispatch(logoutTC())
     }
-
 
     return (
         <>
