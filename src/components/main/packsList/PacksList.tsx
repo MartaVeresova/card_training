@@ -1,8 +1,8 @@
+import React, {FC, memo, useCallback, useEffect, useState} from 'react';
 import {useStyles} from '../styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../../bll/store';
 import {createPackTC, PacksInitialStateType, setCardPacksTC} from '../../../bll/packs-reducer';
-import React, {useCallback, useEffect, useState} from 'react';
 import {saveState} from '../../../utils/localStorage-util';
 import Paper from '@material-ui/core/Paper';
 import {ProgressModalComponent} from '../commonComponents/modal/progressModalComponent/ProgressModalComponent';
@@ -17,7 +17,7 @@ import {AddPackModal} from '../commonComponents/modal/addPackModal/AddPackModal'
 import s from '../cards/Cards.module.css'
 
 
-export const PacksList: React.FC = React.memo(() => {
+export const PacksList: FC = memo(() => {
 
     const classes = useStyles();
     const dispatch = useDispatch()

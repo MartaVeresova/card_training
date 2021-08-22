@@ -1,11 +1,11 @@
-import React, {useCallback} from 'react'
+import React, {FC, memo, useCallback} from 'react'
 import Error404Img from './Error404.png'
 import Button from '@material-ui/core/Button';
 import s from './Error404.module.css'
 import {useHistory} from 'react-router-dom';
 
 
-export const Error404: React.FC = React.memo(() => {
+export const Error404: FC = memo(() => {
 
     const history = useHistory()
 

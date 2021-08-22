@@ -1,7 +1,7 @@
+import React, {ChangeEvent, FC, memo, MouseEvent, useCallback, useEffect} from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
-import React, {ChangeEvent, MouseEvent, useCallback, useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../../../bll/store';
 import {useStyles} from '../../styles';
@@ -16,11 +16,11 @@ import Table from '@material-ui/core/Table';
 import {useLocation} from 'react-router-dom';
 import {CardsTableActions} from './CardsTableActions';
 import {EditCardRequestType} from '../../../../dal/api';
-import {TableSortLabel} from '@material-ui/core';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
 import s from '../Cards.module.css'
 
 
-export const CardsTable = React.memo(({labelRowsPerPage}: PackNameTableProps) => {
+export const CardsTable: FC<PackNameTableProps> = memo(({labelRowsPerPage}) => {
 
     const classes = useStyles()
     const dispatch = useDispatch()

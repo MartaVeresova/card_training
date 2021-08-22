@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC, memo} from 'react';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import s from './ProgressModalComponent.module.css'
 import {useSelector} from 'react-redux';
@@ -6,7 +6,7 @@ import {AppRootStateType} from '../../../../../bll/store';
 import {AppStatusType} from '../../../../../bll/app-reducer';
 
 
-export const ProgressModalComponent: React.FC = React.memo(() => {
+export const ProgressModalComponent: FC = memo(() => {
 
     const appStatus = useSelector<AppRootStateType, AppStatusType>(state => state.app.status)
 

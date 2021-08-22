@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from 'react';
+import React, {FC, useCallback, useState, memo} from 'react';
 import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
 import {EditCardModal} from '../../commonComponents/modal/editCardModal/EditCardModal';
@@ -6,7 +6,7 @@ import {EditCardRequestType, OnePackType} from '../../../../dal/api';
 import {useStyles} from '../../styles';
 
 
-export const CardsTableActions = React.memo((props: PackTableActionsPropsType) => {
+export const CardsTableActions: FC<PackTableActionsPropsType> = memo(props => {
 
     const {deleteCard, editCard, card} = props
 

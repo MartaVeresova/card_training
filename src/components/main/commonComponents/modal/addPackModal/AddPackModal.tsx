@@ -1,11 +1,11 @@
-import React, {ChangeEvent, useState} from 'react';
-import {Button} from '@material-ui/core';
+import React, {ChangeEvent, FC, memo, useState} from 'react';
+import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import s from '../ModalWindow.module.css'
 import {useStyles} from '../../../styles';
 
 
-export const AddPackModal = React.memo(({closeAddPackModal, addNewPack}: AddPackModalPropsType) => {
+export const AddPackModal: FC<AddPackModalPropsType> = memo(({closeAddPackModal, addNewPack}) => {
 
     const classes = useStyles()
     const [text, setText] = useState('')
@@ -39,7 +39,7 @@ export const AddPackModal = React.memo(({closeAddPackModal, addNewPack}: AddPack
                     onChange={inputChangeHandler}
                 />
                 <Button color="primary"
-                        variant='contained'
+                        variant="contained"
                         onClick={onButtonClickHandler}>Add new pack</Button>
             </div>
         </>

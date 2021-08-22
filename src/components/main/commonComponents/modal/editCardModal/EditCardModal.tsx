@@ -1,12 +1,12 @@
-import React, {ChangeEvent, useState} from 'react';
-import {Button} from '@material-ui/core';
+import React, {ChangeEvent, FC, memo, useState} from 'react';
+import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import {EditCardRequestType, OnePackType} from '../../../../../dal/api';
 import s from '../ModalWindow.module.css'
 import {useStyles} from '../../../styles';
 
 
-export const EditCardModal = React.memo(({closeAddPackModal, card, editCard}: EditPackModalPropsType) => {
+export const EditCardModal: FC<EditPackModalPropsType> = memo(({closeAddPackModal, card, editCard}) => {
 
     const classes = useStyles()
     const [question, setQuestion] = useState(card.question)

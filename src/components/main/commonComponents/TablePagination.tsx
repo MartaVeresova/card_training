@@ -1,5 +1,5 @@
+import React, {FC, memo, MouseEvent} from 'react';
 import useTheme from '@material-ui/core/styles/useTheme';
-import React, {MouseEvent} from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import FirstPageIcon from '@material-ui/icons/FirstPage';
@@ -8,7 +8,7 @@ import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
 import s from './TablePagination.module.css'
 
 
-export const TablePaginationActions = React.memo((props: TablePaginationActionsProps) => {
+export const TablePaginationActions = memo((props: TablePaginationActionsProps) => {
 
     const {count, rowsPerPage, page, onPageChange} = props
     const theme = useTheme()

@@ -1,5 +1,6 @@
-import React, {useState} from 'react';
-import {Button, Radio} from '@material-ui/core';
+import React, {FC, memo, useState} from 'react';
+import Button from '@material-ui/core/Button';
+import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import {trimmedString} from '../../../../../utils/trimmedString-util';
@@ -8,10 +9,10 @@ import {ProgressModalComponent} from '../progressModalComponent/ProgressModalCom
 import s from '../ModalWindow.module.css'
 
 
-export const LearnCardsModalAnswer = React.memo((props: LearnCardsModalPropsType) => {
+export const LearnCardsModalAnswer: FC<LearnCardsModalPropsType> = memo(props => {
 
-    const classes = useStyles()
     const {question, answer, packName, openNextRandomCard, closeAllModal} = props
+    const classes = useStyles()
 
     const [grade, setGrade] = useState<number>(0)
 

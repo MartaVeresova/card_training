@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC, memo} from 'react';
 import {useFormik} from 'formik';
 import * as Yup from 'yup'
 import {useDispatch, useSelector} from 'react-redux';
@@ -20,7 +20,7 @@ import Link from '@material-ui/core/Link';
 import {ProgressModalComponent} from '../main/commonComponents/modal/progressModalComponent/ProgressModalComponent';
 
 
-export const Registration: React.FC = React.memo(() => {
+export const Registration: FC = memo(() => {
 
     const classes = useStyles()
     const dispatch = useDispatch()

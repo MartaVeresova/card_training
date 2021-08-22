@@ -1,4 +1,4 @@
-import React, {ChangeEvent, MouseEvent, useCallback, useEffect, useState} from 'react';
+import React, {ChangeEvent, FC, memo, MouseEvent, useCallback, useEffect, useState} from 'react';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
 import Button from '@material-ui/core/Button';
@@ -25,7 +25,7 @@ import {
 } from '../../../../bll/learn-reducer';
 import {EditPackModal} from '../../commonComponents/modal/editPackModal/EditPackModal';
 import {LearnCardsModalQuestion} from '../../commonComponents/modal/learnCardsModal/LearnCardsModalQuestion';
-import {TableSortLabel} from '@material-ui/core';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
 import s from './PacksListTable.module.css'
 
 
@@ -43,7 +43,7 @@ const getCard = (cards: OnePackType[]) => {
 }
 
 
-export const PacksListTable = React.memo((props: PacksListTableProps) => {
+export const PacksListTable: FC<PacksListTableProps> = memo(props => {
 
     const classes = useStyles()
     const dispatch = useDispatch()

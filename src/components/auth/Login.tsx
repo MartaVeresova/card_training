@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC, memo} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -22,7 +22,7 @@ import {useStyles} from '../main/styles';
 import {ProgressModalComponent} from '../main/commonComponents/modal/progressModalComponent/ProgressModalComponent';
 
 
-export const Login: React.FC = React.memo(() => {
+export const Login: FC = memo(() => {
 
     const classes = useStyles()
     const dispatch = useDispatch()

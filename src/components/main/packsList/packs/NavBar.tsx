@@ -1,15 +1,16 @@
+import React, {ChangeEvent, FC, memo, useState} from 'react';
 import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
 import Slider from '@material-ui/core/Slider';
 import Grid from '@material-ui/core/Grid';
-import React, {ChangeEvent, useState} from 'react';
 import {useStyles} from '../../styles';
 import {PacksInitialStateType, setCardPacksTC} from '../../../../bll/packs-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../../../bll/store';
 import s from './NavBar.module.css'
 
-export const NavBar: React.FC = React.memo(() => {
+
+export const NavBar: FC = memo(() => {
 
     const classes = useStyles();
     const dispatch = useDispatch()

@@ -1,10 +1,10 @@
-import React from 'react';
+import React, {FC, memo} from 'react';
 import {useSelector} from 'react-redux';
 import {AppRootStateType} from '../../bll/store';
 import {ErrorSnackbar} from '../../features/errors/ErrorSnackbar';
 
 
-export const Profile: React.FC = React.memo(() => {
+export const Profile: FC = memo(() => {
 
     const profileData = useSelector<AppRootStateType, string | null>(state => state.profile.email)
 

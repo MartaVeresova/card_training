@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {FC, memo, useCallback, useEffect, useState} from 'react';
 import Paper from '@material-ui/core/Paper';
 import {ProgressModalComponent} from '../commonComponents/modal/progressModalComponent/ProgressModalComponent';
 import Container from '@material-ui/core/Container/Container';
@@ -20,7 +20,7 @@ import {trimmedString} from '../../../utils/trimmedString-util';
 import s from './Cards.module.css'
 
 
-export const Cards: React.FC = React.memo(() => {
+export const Cards: FC = memo(() => {
 
     const classes = useStyles()
     const dispatch = useDispatch()

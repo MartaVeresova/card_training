@@ -1,8 +1,8 @@
-import React, {ReactElement} from 'react';
+import React, {FC, memo, ReactElement} from 'react';
 import {Redirect, Route} from 'react-router-dom';
 
 
-export const PrivateRoute: React.FC<PropsType> = React.memo(({render: Component, isLoggedIn, path, redirectTo}) => {
+export const PrivateRoute: FC<PropsType> = memo(({render: Component, isLoggedIn, path, redirectTo}) => {
 
 
     return (

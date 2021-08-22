@@ -1,9 +1,9 @@
+import React, {ChangeEvent, FC, memo} from 'react';
 import TextField from '@material-ui/core/TextField';
-import React, {ChangeEvent} from 'react';
 import {useStyles} from '../styles';
 
 
-export const Input = React.memo(function (props: InputSearchPropsType) {
+export const Input: FC<InputSearchPropsType> = memo( props => {
 
     const {placeholderValue, value, dispatchHandler} = props
     const classes = useStyles()

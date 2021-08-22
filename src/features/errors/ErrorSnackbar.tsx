@@ -1,12 +1,12 @@
+import React, {FC, memo} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../bll/store';
-import React from 'react';
 import {AppErrorType, setAppErrorAC} from '../../bll/app-reducer';
 import Snackbar from '@material-ui/core/Snackbar';
-import {Alert} from '@material-ui/lab';
+import Alert from '@material-ui/lab/Alert';
 
 
-export const ErrorSnackbar: React.FC = React.memo(() => {
+export const ErrorSnackbar: FC = memo(() => {
 
     const dispatch = useDispatch()
     const error = useSelector<AppRootStateType, string | null>(state => state.app.error)

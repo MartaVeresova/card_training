@@ -1,11 +1,11 @@
-import React, {ChangeEvent, useState} from 'react';
-import {Button} from '@material-ui/core';
+import React, {ChangeEvent, FC, memo, useState} from 'react';
+import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import s from '../ModalWindow.module.css'
 import {useStyles} from '../../../styles';
 
 
-export const AddCardModal = React.memo(({closeAddPackModal, addNewCard}: AddPackModalPropsType) => {
+export const AddCardModal: FC<AddPackModalPropsType> = memo(({closeAddPackModal, addNewCard}) => {
 
     const classes = useStyles()
     const [question, setQuestion] = useState('')

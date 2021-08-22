@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FC, memo} from 'react';
 import {useFormik} from 'formik';
 import * as Yup from 'yup'
 import {useDispatch, useSelector} from 'react-redux';
@@ -17,7 +17,7 @@ import {useStyles} from '../main/styles';
 import {ProgressModalComponent} from '../main/commonComponents/modal/progressModalComponent/ProgressModalComponent';
 
 
-export const NewPassword: React.FC = React.memo(() => {
+export const NewPassword: FC = memo(() => {
 
     const classes = useStyles()
     const dispatch = useDispatch()

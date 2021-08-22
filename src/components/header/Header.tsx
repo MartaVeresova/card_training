@@ -1,16 +1,19 @@
-import React, {useEffect, useState} from 'react';
-import {AppBar, Tab, Tabs} from '@material-ui/core';
+import React, {FC, memo, useEffect, useState} from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography/Typography';
 import {logoutTC} from '../../bll/auth-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../bll/store';
-import {AccountCircleOutlined, DynamicFeedOutlined} from '@material-ui/icons';
+import AccountCircleOutlined from '@material-ui/icons/AccountCircleOutlined';
+import DynamicFeedOutlined from '@material-ui/icons/DynamicFeedOutlined';
 import {useHistory, useLocation} from 'react-router-dom';
 import {useStyles} from '../main/styles';
 
 
-export const Header: React.FC = React.memo(() => {
+export const Header: FC = memo(() => {
 
     const classes = useStyles()
     const dispatch = useDispatch()

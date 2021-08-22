@@ -1,14 +1,14 @@
-import React from 'react';
-import {Button} from '@material-ui/core';
+import React, {FC, memo} from 'react';
+import Button from '@material-ui/core/Button';
 import {trimmedString} from '../../../../../utils/trimmedString-util';
 import s from '../ModalWindow.module.css'
 import {useStyles} from '../../../styles';
 
 
-export const LearnCardsModalQuestion = React.memo((props: LearnCardsModalPropsType) => {
+export const LearnCardsModalQuestion: FC<LearnCardsModalPropsType> = memo(props => {
 
-    const classes = useStyles()
     const {packName, question, onAnswerButtonClick, closeAllModal} = props
+    const classes = useStyles()
 
     const onBackgroundClick = () => {
         closeAllModal()

@@ -1,10 +1,11 @@
-import React, {ChangeEvent, useState} from 'react';
-import {Button} from '@material-ui/core';
+import React, {ChangeEvent, FC, memo, useState} from 'react';
+import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import {useStyles} from '../../../styles';
 import s from '../ModalWindow.module.css'
 
-export const EditPackModal = React.memo(({oldName, closeEditPackModal, updatePackName}: AddPackModalPropsType) => {
+
+export const EditPackModal: FC<AddPackModalPropsType> = memo(({oldName, closeEditPackModal, updatePackName}) => {
 
     const classes = useStyles()
     const [newName, setNewName] = useState('')

@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {FC, memo, useEffect} from 'react';
 import {NavLink, Redirect, Route, Switch} from 'react-router-dom';
 import './App.css';
 import {Registration} from './components/auth/Registration';
@@ -18,7 +18,7 @@ import {PacksList} from './components/main/packsList/PacksList';
 import {logoutTC} from './bll/auth-reducer';
 
 
-const App: React.FC = React.memo(() => {
+const App: FC = memo(() => {
 
     const dispatch = useDispatch();
     const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
