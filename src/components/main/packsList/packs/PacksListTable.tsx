@@ -76,13 +76,13 @@ export const PacksListTable: FC<PacksListTableProps> = memo(props => {
 
     const openNextRandomCard = useCallback((grade: number) => {
         dispatch(updatedGradeTC({grade, card_id: randomCard._id}, cardsCount))
-    }, [])
+    }, [dispatch, cardsCount, randomCard._id])
 
     const closeAllModal = useCallback(() => {
         dispatch(resetCardsOfPackAC())
         setLearnCardsModalQuestion(false)
         setLearnCardsModalAnswer(false)
-    }, [])
+    }, [dispatch])
 
     const closeEditPackModal = useCallback(() => {
         setEditPackModal(false)
@@ -94,7 +94,7 @@ export const PacksListTable: FC<PacksListTableProps> = memo(props => {
 
     const updatePackName = useCallback((newName?: string) => {
         dispatch(updatePackTC(editPackData.id, newName))
-    }, [])
+    }, [dispatch, editPackData.id])
 
     const onClickSortHandler = (sortValue: SortByType) => {
         if (packs.sortPacksDirection === 0) {
@@ -119,6 +119,7 @@ export const PacksListTable: FC<PacksListTableProps> = memo(props => {
     }
 
     const openEditPackModal = (id: string, name: string) => {
+        debugger
         setEditPackData({id, name})
         setEditPackModal(true)
     }
@@ -220,11 +221,7 @@ export const PacksListTable: FC<PacksListTableProps> = memo(props => {
                                                                 onClick={() => openEditPackModal(cards._id, cards.name)}
                                                                 size={'small'}
                                                                 variant={'outlined'}
-                                                                style={{margin: '0 10px'}}
-
-                                                            >
-                                                                Edit
-                                                            </Button>
+                                                                style={{margin: '0 10px'}}>Edit</Button>
                                                         </span>
                                                         }
                                                         <Button

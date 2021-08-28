@@ -58,7 +58,7 @@ export const PacksList: FC = memo(() => {
 
     const addNewPack = useCallback((newPackName: string) => {
         dispatch(createPackTC({cardsPack: {name: newPackName}}))
-    }, [])
+    }, [dispatch])
 
     const searchInputHandler = useCallback((value: string) => {
         if (intervalID) {
@@ -69,7 +69,7 @@ export const PacksList: FC = memo(() => {
             dispatch(setCardPacksTC({packName: value, page: 1}))
         }, 800)
         setIntervalID(newIntervalID)
-    }, [])
+    }, [dispatch, intervalID])
 
     const openAddPackModal = () => {
         setAddPackModal(true)

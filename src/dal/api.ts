@@ -48,6 +48,7 @@ export const cardPacksApi = {
         return instance.delete(`cards/pack?id=${id}`)
     },
     updatePack(data: UpdatePackRequestType) {
+        debugger
         return instance.put(`cards/pack`, {cardsPack: data})
     },
 

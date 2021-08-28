@@ -1,9 +1,7 @@
-import makeStyles from '@material-ui/core/styles/makeStyles';
+import {createStyles, makeStyles} from '@material-ui/core/styles';
 import {Theme} from '@material-ui/core/styles/createTheme';
 
-
-export const useStyles = makeStyles((theme: Theme) => ({
-
+export const useStyles = makeStyles((theme: Theme) => createStyles({
 //login, registration, change password
     authPaper: {
         marginTop: theme.spacing(8),
@@ -24,23 +22,6 @@ export const useStyles = makeStyles((theme: Theme) => ({
     },
     authTextFieldStyle: {
         height: '65px',
-    },
-//header
-    headerApp: {
-        position: 'static',
-        flexDirection: 'row',
-        display: 'flex',
-        height: '72px',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    headerTypo: {
-        marginLeft: '10px',
-    },
-    headerLogoutButton: {
-        color: 'white',
-        borderColor: 'white',
-        marginRight: '10px',
     },
 //PacksListTable / CardsTable
     table: {

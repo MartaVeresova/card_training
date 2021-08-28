@@ -1,0 +1,16 @@
+.app {
+    position: static;
+    flex-direction: row;
+    display: flex;
+    height: 72px;
+    justify-content: space-between;
+    align-items: center;
+}
+.typo {
+    margin-left: 10px;
+}
+.logoutButton {
+    color: white;
+    border-color: white;
+    margin-right: 10px;
+}

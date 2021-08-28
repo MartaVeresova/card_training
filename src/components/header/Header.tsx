@@ -10,12 +10,11 @@ import {AppRootStateType} from '../../bll/store';
 import AccountCircleOutlined from '@material-ui/icons/AccountCircleOutlined';
 import DynamicFeedOutlined from '@material-ui/icons/DynamicFeedOutlined';
 import {useHistory, useLocation} from 'react-router-dom';
-import {useStyles} from '../main/styles';
+import {createStyles, makeStyles} from '@material-ui/core/styles';
 
 
 export const Header: FC = memo(() => {
 
-    const classes = useStyles()
     const dispatch = useDispatch()
     const history = useHistory()
     const location = useLocation()
@@ -31,6 +30,27 @@ export const Header: FC = memo(() => {
         }
     }, [location, value])
 
+    const useStyles = makeStyles(() =>
+        createStyles({
+            app: {
+                position: 'static',
+                flexDirection: 'row',
+                display: 'flex',
+                height: '72px',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+            },
+            typo: {
+                marginLeft: '10px',
+            },
+            logoutButton: {
+                color: 'white',
+                borderColor: 'white',
+                marginRight: '10px',
+            },
+        }),
+    );
+    const classes = useStyles()
 
     const onPacksClickHandler = () => {
         setValue(0)
@@ -45,8 +65,8 @@ export const Header: FC = memo(() => {
     }
 
     return <>
-        <AppBar className={classes.headerApp}>
-            <Typography className={classes.headerTypo} variant={'h6'}>
+        <AppBar className={classes.app}>
+            <Typography className={classes.typo} variant={'h6'}>
                 CARDS
             </Typography>
             {
@@ -63,7 +83,7 @@ export const Header: FC = memo(() => {
                                  label={'Profile'}
                                  icon={<AccountCircleOutlined/>}/>
                         </Tabs>
-                        <Button className={classes.headerLogoutButton}
+                        <Button className={classes.logoutButton}
                                 onClick={obLogOutClick}
                                 variant="outlined"
                         >

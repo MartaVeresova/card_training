@@ -8,7 +8,7 @@ import s from '../ModalWindow.module.css'
 export const EditPackModal: FC<AddPackModalPropsType> = memo(({oldName, closeEditPackModal, updatePackName}) => {
 
     const classes = useStyles()
-    const [newName, setNewName] = useState('')
+    const [newName, setNewName] = useState(oldName)
 
     const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setNewName(e.currentTarget.value)
@@ -35,7 +35,7 @@ export const EditPackModal: FC<AddPackModalPropsType> = memo(({oldName, closeEdi
                     margin="none"
                     label="New name"
                     autoFocus
-                    value={oldName}
+                    value={newName}
                     onChange={inputChangeHandler}
                 />
                 <Button color="primary"

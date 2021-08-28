@@ -63,8 +63,8 @@ export const Cards: FC = memo(() => {
     }, [])
 
     const addNewCard = useCallback((question: string, answer: string) => {
-        dispatch(createCardTC({cardsPack_id: cardsPack_id, question, answer}))
-    }, [])
+        dispatch(createCardTC({cardsPack_id, question, answer}))
+    }, [dispatch, cardsPack_id])
 
     const searchQuestionHandler = useCallback((value: string) => {
         if (intervalId) {
@@ -72,10 +72,10 @@ export const Cards: FC = memo(() => {
         }
         setCardQuestion(value)
         const newIntervalID = setTimeout(() => {
-            dispatch(setPackTC({cardQuestion: value, cardAnswer: cardAnswer, page: 1}))
+            dispatch(setPackTC({cardQuestion: value, cardAnswer, page: 1}))
         }, 800)
         setIntervalId(newIntervalID)
-    }, [])
+    }, [dispatch, intervalId, cardAnswer])
 
     const searchAnswerHandler = useCallback((value: string) => {
         if (intervalId) {
@@ -83,10 +83,10 @@ export const Cards: FC = memo(() => {
         }
         setCardAnswer(value)
         const newIntervalID = setTimeout(() => {
-            dispatch(setPackTC({cardQuestion: cardQuestion, cardAnswer: value, page: 1}))
+            dispatch(setPackTC({cardQuestion, cardAnswer: value, page: 1}))
         }, 800)
         setIntervalId(newIntervalID)
-    }, [])
+    }, [dispatch, cardQuestion, intervalId])
 
     const openAddPackModal = () => {
         setAddPackModal(true)

@@ -41,7 +41,7 @@ export const CardsTable: FC<PackNameTableProps> = memo(({labelRowsPerPage}) => {
 
     const editCardHandler = useCallback((data: EditCardRequestType) => {
         dispatch(editCardTC({...data}))
-    }, [])
+    }, [dispatch])
 
     const onClickSortHandler = (sortValue: SortByType) => {
         if (cards.sortCardDirection === 0) {
@@ -53,7 +53,7 @@ export const CardsTable: FC<PackNameTableProps> = memo(({labelRowsPerPage}) => {
 
     const deleteCardHandler = useCallback((cardId: string) => {
         dispatch(deleteCardTC(cards.cardsPack_id, cardId))
-    }, [])
+    }, [dispatch, cards.cardsPack_id])
 
     const handleChangePageCount = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         dispatch(setPackTC({cardsPack_id: packID, pageCount: parseInt(e.target.value, 10)}))
