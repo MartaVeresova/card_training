@@ -15,6 +15,7 @@ import {createStyles, makeStyles} from '@material-ui/core/styles';
 
 export const Header: FC = memo(() => {
 
+    const classes = useStyles()
     const dispatch = useDispatch()
     const history = useHistory()
     const location = useLocation()
@@ -29,28 +30,6 @@ export const Header: FC = memo(() => {
             setValue(0)
         }
     }, [location, value])
-
-    const useStyles = makeStyles(() =>
-        createStyles({
-            app: {
-                position: 'static',
-                flexDirection: 'row',
-                display: 'flex',
-                height: '72px',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-            },
-            typo: {
-                marginLeft: '10px',
-            },
-            logoutButton: {
-                color: 'white',
-                borderColor: 'white',
-                marginRight: '10px',
-            },
-        }),
-    );
-    const classes = useStyles()
 
     const onPacksClickHandler = () => {
         setValue(0)
@@ -94,3 +73,24 @@ export const Header: FC = memo(() => {
         </AppBar>
     </>
 })
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        app: {
+            position: 'static',
+            flexDirection: 'row',
+            display: 'flex',
+            height: '72px',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+        },
+        typo: {
+            marginLeft: '10px',
+        },
+        logoutButton: {
+            color: 'white',
+            borderColor: 'white',
+            marginRight: '10px',
+        },
+    }),
+);

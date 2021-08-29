@@ -4,7 +4,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../../../bll/store';
-import {useStyles} from '../../styles';
 import {CardsInitialStateType, deleteCardTC, editCardTC, resetPackAC, setPackTC} from '../../../../bll/cards-reducer';
 import {trimmedString} from '../../../../utils/trimmedString-util';
 import {updateDate} from '../../../../utils/updateDate-util';
@@ -18,6 +17,7 @@ import {CardsTableActions} from './CardsTableActions';
 import {EditCardRequestType} from '../../../../dal/api';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import s from '../Cards.module.css'
+import {createStyles, makeStyles} from '@material-ui/core/styles';
 
 
 export const CardsTable: FC<PackNameTableProps> = memo(({labelRowsPerPage}) => {
@@ -156,3 +156,29 @@ type SortByType = 'question' | 'answer' | 'updated' | 'grade'
 type PackNameTableProps = {
     labelRowsPerPage: string
 }
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        table: {
+            minWidth: '700px',
+        },
+        tableHead: {
+            backgroundColor: 'lightblue',
+        },
+        packsListTableBodyNavLink: {
+            textDecoration: 'none',
+            color: 'black'
+        },
+        packsListTableBodyActionsSection: {
+            display: 'flex',
+            width: '224px',
+            justifyContent: 'flex-end',
+        },
+        footerPage: {
+            display: 'flex',
+            height: '53px',
+            marginLeft: '10px',
+            alignItems: 'center',
+        },
+    }),
+);

@@ -97,7 +97,6 @@ export const deletePackTC = (packId: string): AppThunk =>
 
 export const updatePackTC = (packID: string, name?: string): AppThunk =>
     async dispatch => {
-    debugger
         dispatch(setAppStatusAC('loading'))
         try {
             await cardPacksApi.updatePack({_id: packID, name})

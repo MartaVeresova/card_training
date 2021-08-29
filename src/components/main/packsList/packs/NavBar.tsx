@@ -3,11 +3,11 @@ import ButtonGroup from '@material-ui/core/ButtonGroup';
 import Button from '@material-ui/core/Button';
 import Slider from '@material-ui/core/Slider';
 import Grid from '@material-ui/core/Grid';
-import {useStyles} from '../../styles';
 import {PacksInitialStateType, setCardPacksTC} from '../../../../bll/packs-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../../../bll/store';
 import s from './NavBar.module.css'
+import {createStyles, makeStyles} from '@material-ui/core/styles';
 
 
 export const NavBar: FC = memo(() => {
@@ -61,3 +61,26 @@ export const NavBar: FC = memo(() => {
         </Grid>
     )
 })
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        navbar: {
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            maxWidth: '200px',
+            minWidth: '200px',
+            backgroundColor: 'lightblue',
+            borderRadius: '4px 0px 0px 4px',
+        },
+        navbarShowPacksCards: {
+            fontSize: '20px',
+            fontWeight: 'bold',
+            marginTop: '10px',
+            marginBottom: '10px',
+        },
+        navbarMyAllButtons: {
+            marginTop: '20px',
+        },
+    }),
+);

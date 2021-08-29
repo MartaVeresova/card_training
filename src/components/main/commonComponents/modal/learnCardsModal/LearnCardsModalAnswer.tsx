@@ -4,9 +4,9 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormGroup from '@material-ui/core/FormGroup';
 import {trimmedString} from '../../../../../utils/trimmedString-util';
-import {useStyles} from '../../../styles';
 import {ProgressModalComponent} from '../progressModalComponent/ProgressModalComponent';
 import s from '../ModalWindow.module.css'
+import {createStyles, makeStyles} from '@material-ui/core/styles';
 
 
 export const LearnCardsModalAnswer: FC<LearnCardsModalPropsType> = memo(props => {
@@ -111,3 +111,16 @@ type option = {
     title: string
 }
 type GradeType = option[]
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        optionsForRateYourself: {
+            margin: '5px 30px',
+            display: 'inline-flex',
+        },
+        nextQuestionButton: {
+            margin: '30px auto 0',
+            width: '100px',
+        },
+    }),
+);

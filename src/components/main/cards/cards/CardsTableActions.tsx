@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
 import {EditCardModal} from '../../commonComponents/modal/editCardModal/EditCardModal';
 import {EditCardRequestType, OnePackType} from '../../../../dal/api';
-import {useStyles} from '../../styles';
+import {createStyles, makeStyles} from '@material-ui/core/styles';
 
 
 export const CardsTableActions: FC<PackTableActionsPropsType> = memo(props => {
@@ -58,3 +58,15 @@ type PackTableActionsPropsType = {
     editCard: (data: EditCardRequestType) => void
     card: OnePackType
 }
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        actionsButtonOfCards: {
+            marginRight: '10px',
+        },
+        containerActionsButton: {
+            width: '166px',
+            padding: '16px 0',
+        },
+    }),
+);

@@ -1,8 +1,8 @@
 import React, {ChangeEvent, FC, memo, useState} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import {useStyles} from '../../../styles';
 import s from '../ModalWindow.module.css'
+import {createStyles, makeStyles} from '@material-ui/core/styles';
 
 
 export const EditPackModal: FC<AddPackModalPropsType> = memo(({oldName, closeEditPackModal, updatePackName}) => {
@@ -53,3 +53,11 @@ type AddPackModalPropsType = {
     closeEditPackModal: () => void
     updatePackName: (name?: string) => void
 }
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        addEditPackInput: {
+            margin: '30px 0 50px 0',
+        },
+    }),
+);

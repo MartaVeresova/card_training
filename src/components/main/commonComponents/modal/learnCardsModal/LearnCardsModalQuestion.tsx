@@ -2,7 +2,7 @@ import React, {FC, memo} from 'react';
 import Button from '@material-ui/core/Button';
 import {trimmedString} from '../../../../../utils/trimmedString-util';
 import s from '../ModalWindow.module.css'
-import {useStyles} from '../../../styles';
+import {createStyles, makeStyles} from '@material-ui/core/styles';
 
 
 export const LearnCardsModalQuestion: FC<LearnCardsModalPropsType> = memo(props => {
@@ -49,3 +49,12 @@ type LearnCardsModalPropsType = {
     onAnswerButtonClick: () => void
     closeAllModal: () => void
 }
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        showAnswerButton: {
+            margin: '30px auto 0',
+            width: '160px',
+        },
+    }),
+);

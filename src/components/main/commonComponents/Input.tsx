@@ -1,6 +1,6 @@
 import React, {ChangeEvent, FC, memo} from 'react';
 import TextField from '@material-ui/core/TextField';
-import {useStyles} from '../styles';
+import {createStyles, makeStyles} from '@material-ui/core/styles';
 
 
 export const Input: FC<InputSearchPropsType> = memo( props => {
@@ -34,3 +34,12 @@ type InputSearchPropsType = {
     value: string
     dispatchHandler: (value: string) => void
 }
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        input: {
+            height: '40px',
+            marginRight: '15px'
+        },
+    }),
+);

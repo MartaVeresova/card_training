@@ -5,7 +5,6 @@ import Container from '@material-ui/core/Container/Container';
 import {Input} from '../commonComponents/Input';
 import TableContainer from '@material-ui/core/TableContainer';
 import {ErrorSnackbar} from '../../../features/errors/ErrorSnackbar';
-import {useStyles} from '../styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {CardsInitialStateType, createCardTC, setPackTC} from '../../../bll/cards-reducer';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
@@ -18,6 +17,7 @@ import Button from '@material-ui/core/Button';
 import {AddCardModal} from '../commonComponents/modal/addCardModal/AddCardModal';
 import {trimmedString} from '../../../utils/trimmedString-util';
 import s from './Cards.module.css'
+import {createStyles, makeStyles} from '@material-ui/core/styles';
 
 
 export const Cards: FC = memo(() => {
@@ -141,3 +141,29 @@ export const Cards: FC = memo(() => {
         </Container>
     )
 })
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        container: {
+            padding: '0 12px',
+        },
+        paper: {
+            marginTop: '20px',
+            marginBottom: '60px',
+            display: 'flex',
+            flexDirection: 'row',
+            minHeight: '600px',
+            minWidth: '1000px',
+        },
+        body: {
+            margin: '10px 12px',
+            padding: '0 12px',
+        },
+        addNewCardButton: {
+            width: '330px',
+        },
+        packsCardsFooter: {
+            marginTop: '20px',
+        },
+    }),
+);

@@ -2,7 +2,7 @@ import React, {ChangeEvent, FC, memo, useState} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import s from '../ModalWindow.module.css'
-import {useStyles} from '../../../styles';
+import {createStyles, makeStyles} from '@material-ui/core/styles';
 
 
 export const AddCardModal: FC<AddPackModalPropsType> = memo(({closeAddPackModal, addNewCard}) => {
@@ -65,3 +65,19 @@ type AddPackModalPropsType = {
     closeAddPackModal: () => void
     addNewCard: (question: string, answer: string) => void
 }
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        questionInput: {
+            width: '450px',
+        },
+        answerInput: {
+            width: '450px',
+            marginTop: '30px',
+        },
+        addNewCardModalButton: {
+            width: '150px',
+            marginTop: '20px',
+        },
+    }),
+);

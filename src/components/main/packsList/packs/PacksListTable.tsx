@@ -6,7 +6,6 @@ import TableHead from '@material-ui/core/TableHead';
 import {deletePackTC, PacksInitialStateType, setCardPacksTC, updatePackTC} from '../../../../bll/packs-reducer';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../../../bll/store';
-import {useStyles} from '../../styles';
 import Table from '@material-ui/core/Table';
 import {NavLink} from 'react-router-dom';
 import {trimmedString} from '../../../../utils/trimmedString-util';
@@ -27,6 +26,7 @@ import {EditPackModal} from '../../commonComponents/modal/editPackModal/EditPack
 import {LearnCardsModalQuestion} from '../../commonComponents/modal/learnCardsModal/LearnCardsModalQuestion';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import s from './PacksListTable.module.css'
+import {createStyles, makeStyles} from '@material-ui/core/styles';
 
 
 const getCard = (cards: OnePackType[]) => {
@@ -119,7 +119,6 @@ export const PacksListTable: FC<PacksListTableProps> = memo(props => {
     }
 
     const openEditPackModal = (id: string, name: string) => {
-        debugger
         setEditPackData({id, name})
         setEditPackModal(true)
     }
@@ -273,3 +272,29 @@ type SortByType = 'name' | 'cardsCount' | 'updated' | 'created'
 type PacksListTableProps = {
     labelRowsPerPage: string
 }
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        table: {
+            minWidth: '700px',
+        },
+        tableHead: {
+            backgroundColor: 'lightblue',
+        },
+        packsListTableBodyNavLink: {
+            textDecoration: 'none',
+            color: 'black'
+        },
+        packsListTableBodyActionsSection: {
+            display: 'flex',
+            width: '224px',
+            justifyContent: 'flex-end',
+        },
+        footerPage: {
+            display: 'flex',
+            height: '53px',
+            marginLeft: '10px',
+            alignItems: 'center',
+        },
+    }),
+);

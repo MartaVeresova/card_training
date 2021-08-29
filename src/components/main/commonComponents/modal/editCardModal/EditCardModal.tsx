@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import {EditCardRequestType, OnePackType} from '../../../../../dal/api';
 import s from '../ModalWindow.module.css'
-import {useStyles} from '../../../styles';
+import {createStyles, makeStyles} from '@material-ui/core/styles';
 
 
 export const EditCardModal: FC<EditPackModalPropsType> = memo(({closeAddPackModal, card, editCard}) => {
@@ -68,3 +68,19 @@ type EditPackModalPropsType = {
     editCard: (data: EditCardRequestType) => void
     card: OnePackType
 }
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        questionInput: {
+            width: '450px',
+        },
+        answerInput: {
+            width: '450px',
+            marginTop: '30px',
+        },
+        addNewCardModalButton: {
+            width: '150px',
+            marginTop: '20px',
+        },
+    }),
+);

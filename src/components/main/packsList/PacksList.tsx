@@ -1,5 +1,4 @@
 import React, {FC, memo, useCallback, useEffect, useState} from 'react';
-import {useStyles} from '../styles';
 import {useDispatch, useSelector} from 'react-redux';
 import {AppRootStateType} from '../../../bll/store';
 import {createPackTC, PacksInitialStateType, setCardPacksTC} from '../../../bll/packs-reducer';
@@ -15,6 +14,7 @@ import {PacksListTable} from './packs/PacksListTable';
 import {ErrorSnackbar} from '../../../features/errors/ErrorSnackbar';
 import {AddPackModal} from '../commonComponents/modal/addPackModal/AddPackModal';
 import s from '../cards/Cards.module.css'
+import {createStyles, makeStyles} from '@material-ui/core/styles';
 
 
 export const PacksList: FC = memo(() => {
@@ -111,3 +111,30 @@ export const PacksList: FC = memo(() => {
         </Container>
     )
 })
+
+const useStyles = makeStyles(() =>
+    createStyles({
+        container: {
+            padding: '0 12px',
+        },
+        paper: {
+            marginTop: '20px',
+            marginBottom: '60px',
+            display: 'flex',
+            flexDirection: 'row',
+            minHeight: '600px',
+            minWidth: '1000px',
+        },
+        body: {
+            margin: '10px 12px',
+            padding: '0 12px',
+        },
+        addNewPackButton: {
+            width: '230px',
+            marginLeft: '20px',
+        },
+        packsCardsFooter: {
+            marginTop: '20px',
+        },
+    }),
+);
