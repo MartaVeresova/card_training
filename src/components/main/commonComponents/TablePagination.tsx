@@ -1,4 +1,4 @@
-import React, {FC, memo, MouseEvent} from 'react';
+import React, {memo, MouseEvent} from 'react';
 import useTheme from '@material-ui/core/styles/useTheme';
 import IconButton from '@material-ui/core/IconButton';
 import LastPageIcon from '@material-ui/icons/LastPage';
