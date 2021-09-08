@@ -1,6 +1,6 @@
-import {AppRootStateType, AppThunk} from './store';
+import {AppThunk} from './store';
 import {setAppErrorAC, setAppStatusAC} from './app-reducer';
-import {cardPacksApi, GradeRequestType, OnePackType, CardsRequestType} from '../dal/api';
+import {cardPacksApi, CardsRequestType, GradeRequestType, OnePackType} from '../dal/api';
 
 
 const initialState = [] as OnePackType[]
@@ -33,7 +33,7 @@ export const resetCardsOfPackAC = () =>
 
 //thunks
 export const fetchCardsOfPackTC = (data: CardsRequestType): AppThunk =>
-    async (dispatch, getState: () => AppRootStateType) => {
+    async dispatch => {
         dispatch(setAppStatusAC('loading'))
         const cardsOfPackApiModel = {
             cardsPack_id: data.cardsPack_id,

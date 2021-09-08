@@ -37,7 +37,7 @@ export const LearnCardsModalAnswer: FC<LearnCardsModalPropsType> = memo(props =>
     }
 
     const nextButtonClickHandler = () => {
-        openNextRandomCard(grade === 0 ? 1 : grade)
+        openNextRandomCard(grade === 0 ? 3 : grade)
         setGrade(0)
     }
 

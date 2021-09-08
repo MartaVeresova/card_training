@@ -30,8 +30,9 @@ export const EditPackModal: FC<AddPackModalPropsType> = memo(({oldName, closeEdi
             <div className={s.windowByAddDeletePack}>
                 <h2>Enter new name of pack</h2>
                 <TextField
+
                     className={classes.addEditPackInput}
-                    variant="outlined"
+                    variant='outlined'
                     margin="none"
                     label="New name"
                     autoFocus

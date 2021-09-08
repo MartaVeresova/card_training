@@ -132,9 +132,15 @@ export const Cards: FC = memo(() => {
                             Add new card
                         </Button>
                     </div>
-                    <TableContainer className={classes.packsCardsFooter} component={Paper}>
-                        <CardsTable labelRowsPerPage={'Cards per page'}/>
-                    </TableContainer>
+                    {
+                        !cards.cards.length
+                            ? <div className={s.titleOfEmptyPack}>
+                                <p>This pack is empty. Click Add new card to fill this pack.</p>
+                        </div>
+                            : <TableContainer className={classes.packsCardsFooter} component={Paper}>
+                                <CardsTable labelRowsPerPage={'Cards per page'}/>
+                            </TableContainer>
+                    }
                 </Container>
             </Paper>
             <ErrorSnackbar/>

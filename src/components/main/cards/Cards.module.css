@@ -3,14 +3,17 @@
     align-items: center;
     cursor: pointer;
 }
+
 .titleBackToPacks {
     margin-left: 10px;
 }
+
 .packListHeading {
     font-size: 30px;
     font-weight: bold;
     overflow-wrap: break-word;
 }
+
 .inputButtonSection {
     display: flex;
     justify-content: space-between;
@@ -21,4 +24,18 @@
     height: 53px;
     margin-left: 10px;
     align-items: center;
+}
+
+.titleOfEmptyPack {
+    height: 50%;
+    text-align: center;
+    position: relative
+}
+
+.titleOfEmptyPack p {
+    color: #a5a5a5;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
 }
