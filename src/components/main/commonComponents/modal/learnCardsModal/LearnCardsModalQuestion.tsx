@@ -32,7 +32,8 @@ export const LearnCardsModalQuestion: FC<LearnCardsModalPropsType> = memo(props 
 
                 <Button
                     className={classes.showAnswerButton}
-                    color="primary" variant={'contained'}
+                    color="primary"
+                    variant='outlined'
                     onClick={onAnswerButtonClick}
                 >
                     Show answer

@@ -27,7 +27,7 @@ export const AddPackModal: FC<AddPackModalPropsType> = memo(({closeAddPackModal,
             <div className={s.darkWindow}
                  onClick={onBackgroundClick}>
             </div>
-            <div className={s.windowByAddPack}>
+            <div className={s.windowByAddDeletePack}>
                 <h2>Enter new pack name</h2>
                 <TextField
                     className={classes.addEditPackInput}

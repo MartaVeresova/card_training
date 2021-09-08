@@ -31,7 +31,7 @@ export const AddCardModal: FC<AddPackModalPropsType> = memo(({closeAddPackModal,
             <div className={s.darkWindow}
                  onClick={onBackgroundClick}>
             </div>
-            <div className={s.windowByAddEditCard}>
+            <div className={s.windowByAddEditDeleteCard}>
                 <h2>Create new card</h2>
                 <TextField
                     className={classes.questionInput}
@@ -53,7 +53,7 @@ export const AddCardModal: FC<AddPackModalPropsType> = memo(({closeAddPackModal,
                 <Button
                     className={classes.addNewCardModalButton}
                     color="primary"
-                    variant={'contained'}
+                    variant="outlined"
                     onClick={onButtonClickHandler}>Add new card</Button>
             </div>
         </>

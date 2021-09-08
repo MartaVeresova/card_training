@@ -27,7 +27,7 @@ export const EditPackModal: FC<AddPackModalPropsType> = memo(({oldName, closeEdi
             <div className={s.darkWindow}
                  onClick={onBackgroundClick}>
             </div>
-            <div className={s.windowByAddPack}>
+            <div className={s.windowByAddDeletePack}>
                 <h2>Enter new name of pack</h2>
                 <TextField
                     className={classes.addEditPackInput}
@@ -39,7 +39,7 @@ export const EditPackModal: FC<AddPackModalPropsType> = memo(({oldName, closeEdi
                     onChange={inputChangeHandler}
                 />
                 <Button color="primary"
-                        variant="contained"
+                        variant='outlined'
                         onClick={onButtonClickHandler}>RENAME</Button>
             </div>
         </>

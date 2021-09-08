@@ -7,6 +7,7 @@
     background-color: rgba(0, 0, 0, 0.6);
     z-index: 10
 }
+
 .windowByQuestion {
     position: fixed;
     left: calc(50vw - 220px);
@@ -22,12 +23,14 @@
     padding: 20px 0 40px;
     z-index: 11;
 }
+
 .nameOfPack {
     max-width: 440px;
     overflow-wrap: break-word;
     margin: 10px 30px;
     text-align: center;
 }
+
 .randomQuestionAndAnswer {
     max-width: 440px;
     overflow-wrap: break-word;
@@ -51,7 +54,7 @@
     z-index: 11;
 }
 
-.windowByAddEditCard {
+.windowByAddEditDeleteCard {
     position: fixed;
     left: calc(50vw - 250px);
     top: calc(50vh - 171px);
@@ -67,7 +70,7 @@
     z-index: 11;
 }
 
-.windowByAddPack {
+.windowByAddDeletePack {
     position: fixed;
     left: calc(50vw - 200px);
     top: calc(50vh - 161px);
@@ -81,5 +84,13 @@
     align-items: center;
     margin: 20px 0;
     z-index: 11;
+}
+
+.warningTitle {
+    margin: 0 30px;
+}
+
+.cancelAndDeleteButtons {
+
 }
 

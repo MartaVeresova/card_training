@@ -28,7 +28,6 @@ export const CardsTable: FC<PackNameTableProps> = memo(({labelRowsPerPage}) => {
     const idUser = useSelector<AppRootStateType, string>(state => state.profile._id)
     const packID = useLocation().pathname.substring(6)
 
-
     useEffect(() => {
         return function () {
             dispatch(resetPackAC())
@@ -148,6 +147,7 @@ export const CardsTable: FC<PackNameTableProps> = memo(({labelRowsPerPage}) => {
                     />
                 </TableRow>
             </TableFooter>
+
         </Table>
     )
 })

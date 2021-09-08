@@ -1,9 +1,10 @@
-import React, {FC, useCallback, useState, memo} from 'react';
+import React, {FC, memo, useCallback, useState} from 'react';
 import Button from '@material-ui/core/Button';
 import TableCell from '@material-ui/core/TableCell';
 import {EditCardModal} from '../../commonComponents/modal/editCardModal/EditCardModal';
 import {EditCardRequestType, OnePackType} from '../../../../dal/api';
 import {createStyles, makeStyles} from '@material-ui/core/styles';
+import {DeleteCardModal} from '../../commonComponents/modal/deleteCardModal/DeleteCardModal';
 
 
 export const CardsTableActions: FC<PackTableActionsPropsType> = memo(props => {
@@ -12,16 +13,26 @@ export const CardsTableActions: FC<PackTableActionsPropsType> = memo(props => {
 
     const classes = useStyles()
     const [editPackModal, setEditPackModal] = useState(false)
+    const [deleteCardModal, setDeleteCardModal] = useState(false)
 
     const closeEditPackModal = useCallback(() => {
         setEditPackModal(false)
     }, [])
 
-    const onDeleteButtonClick = () => {
+    const closeDeleteCardModal = useCallback(() => {
+        setDeleteCardModal(false)
+    }, [])
+
+    const onDeleteButtonClick = useCallback(() => {
         deleteCard(card._id)
-    }
+    }, [card])
+
     const openEditPackModal = () => {
         setEditPackModal(true)
+    }
+
+    const openDeleteCardModal = () => {
+        setDeleteCardModal(true)
     }
 
 
@@ -29,20 +40,28 @@ export const CardsTableActions: FC<PackTableActionsPropsType> = memo(props => {
         <TableCell align="right" className={classes.containerActionsButton}>
             {
                 editPackModal &&
-                <EditCardModal closeAddPackModal={closeEditPackModal}
-                               editCard={editCard}
-                               card={card}/>
+                <EditCardModal
+                    closeAddPackModal={closeEditPackModal}
+                    editCard={editCard}
+                    card={card}/>
+            }
+            {
+                deleteCardModal &&
+                <DeleteCardModal
+                    deleteCard={onDeleteButtonClick}
+                    closeDeleteCardModal={closeDeleteCardModal}
+                />
             }
             <Button
                 className={classes.actionsButtonOfCards}
-                size={'small'}
+                size="small"
                 variant="outlined"
                 color="secondary"
-                onClick={onDeleteButtonClick}
+                onClick={openDeleteCardModal}
             >DELETE</Button>
             <Button
                 className={classes.actionsButtonOfCards}
-                size={'small'}
+                size="small"
                 variant="outlined"
                 color="primary"
                 onClick={openEditPackModal}

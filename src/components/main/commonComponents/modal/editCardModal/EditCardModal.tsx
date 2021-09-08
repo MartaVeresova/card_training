@@ -32,7 +32,7 @@ export const EditCardModal: FC<EditPackModalPropsType> = memo(({closeAddPackModa
             <div className={s.darkWindow}
                  onClick={onBackgroundClick}>
             </div>
-            <div className={s.windowByAddEditCard}>
+            <div className={s.windowByAddEditDeleteCard}>
                 <h2>Edit card</h2>
                 <TextField
                     className={classes.questionInput}
@@ -54,7 +54,7 @@ export const EditCardModal: FC<EditPackModalPropsType> = memo(({closeAddPackModa
                 <Button
                     className={classes.addNewCardModalButton}
                     color="primary"
-                    variant={'contained'}
+                    variant='outlined'
                     onClick={onButtonClickHandler}>Save changes</Button>
             </div>
         </>

@@ -27,6 +27,7 @@ import {LearnCardsModalQuestion} from '../../commonComponents/modal/learnCardsMo
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import s from './PacksListTable.module.css'
 import {createStyles, makeStyles} from '@material-ui/core/styles';
+import {DeletePackModal} from '../../commonComponents/modal/deletePackModal/DeletePackModal';
 
 
 const getCard = (cards: OnePackType[]) => {
@@ -51,6 +52,8 @@ export const PacksListTable: FC<PacksListTableProps> = memo(props => {
     const id = useSelector<AppRootStateType, string>(state => state.profile._id)
     const cardsForLearn = useSelector<AppRootStateType, CardsForLearnInitialStateType>(state => state.cardsForLearn)
 
+    const [deletePackModal, setDeletePackModal] = useState(false)
+    const [deletePackData, setDeletePackData] = useState({id: '', name: ''})
     const [editPackModal, setEditPackModal] = useState(false)
     const [editPackData, setEditPackData] = useState({id: '', name: ''})
     const [learnCardsModalQuestion, setLearnCardsModalQuestion] = useState(false)
@@ -96,16 +99,20 @@ export const PacksListTable: FC<PacksListTableProps> = memo(props => {
         dispatch(updatePackTC(editPackData.id, newName))
     }, [dispatch, editPackData.id])
 
+    const closeDeletePackModal = useCallback(() => {
+        setDeletePackModal(false)
+    }, [])
+
+    const onDeleteButtonClickHandler = useCallback(() => {
+        dispatch(deletePackTC(deletePackData.id))
+    }, [dispatch, deletePackData])
+
     const onClickSortHandler = (sortValue: SortByType) => {
         if (packs.sortPacksDirection === 0) {
             dispatch(setCardPacksTC({sortPacks: '1' + sortValue}))
         } else {
             dispatch(setCardPacksTC({sortPacks: '0' + sortValue}))
         }
-    }
-
-    const onDeleteButtonClickHandler = (packId: string) => {
-        dispatch(deletePackTC(packId))
     }
 
     const handleChangePageCount = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -121,6 +128,11 @@ export const PacksListTable: FC<PacksListTableProps> = memo(props => {
     const openEditPackModal = (id: string, name: string) => {
         setEditPackData({id, name})
         setEditPackModal(true)
+    }
+
+    const openDeletePackModal = (id: string, name: string) => {
+        setDeletePackData({id, name})
+        setDeletePackModal(true)
     }
 
 
@@ -151,6 +163,14 @@ export const PacksListTable: FC<PacksListTableProps> = memo(props => {
                     oldName={editPackData.name}
                     closeEditPackModal={closeEditPackModal}
                     updatePackName={updatePackName}
+                />
+            }
+            {
+                deletePackModal &&
+                <DeletePackModal
+                    packName={deletePackData.name}
+                    closeDeletePackModal={closeDeletePackModal}
+                    deletePack={onDeleteButtonClickHandler}
                 />
             }
             <Table className={classes.table} aria-label="custom pagination table">
@@ -212,7 +232,7 @@ export const PacksListTable: FC<PacksListTableProps> = memo(props => {
                                                         {cards.user_id === id &&
                                                         <span>
                                                             <Button
-                                                                onClick={() => onDeleteButtonClickHandler(cards._id)}
+                                                                onClick={() => openDeletePackModal(cards._id, cards.name)}
                                                                 size={'small'}
                                                                 variant={'outlined'}
                                                                 color={'secondary'}>Delete</Button>
@@ -283,7 +303,10 @@ const useStyles = makeStyles(() =>
         },
         packsListTableBodyNavLink: {
             textDecoration: 'none',
-            color: 'black'
+            color: 'black',
+            '&:hover': {
+                color: '#a5a5a5',
+            },
         },
         packsListTableBodyActionsSection: {
             display: 'flex',

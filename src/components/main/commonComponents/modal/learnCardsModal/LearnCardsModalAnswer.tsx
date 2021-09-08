@@ -87,7 +87,7 @@ export const LearnCardsModalAnswer: FC<LearnCardsModalPropsType> = memo(props =>
                 <Button
                     className={classes.nextQuestionButton}
                     color="primary"
-                    variant={'contained'}
+                    variant='outlined'
                     onClick={nextButtonClickHandler}
                 >
                     Next
