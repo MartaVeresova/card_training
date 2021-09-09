@@ -233,20 +233,20 @@ export const PacksListTable: FC<PacksListTableProps> = memo(props => {
                                                         <span>
                                                             <Button
                                                                 onClick={() => openDeletePackModal(cards._id, cards.name)}
-                                                                size='small'
-                                                                variant='outlined'
-                                                                color='secondary'>Delete</Button>
+                                                                size="small"
+                                                                variant="outlined"
+                                                                color="secondary">Delete</Button>
                                                             <Button
                                                                 onClick={() => openEditPackModal(cards._id, cards.name)}
-                                                                size='small'
-                                                                variant='outlined'
+                                                                size="small"
+                                                                variant="outlined"
                                                                 style={{margin: '0 10px'}}>Edit</Button>
                                                         </span>
                                                         }
                                                         <Button
                                                             onClick={() => startLearning(cards._id, cards.cardsCount, cards.name)}
-                                                            size='small'
-                                                            variant='outlined'
+                                                            size="small"
+                                                            variant="outlined"
                                                             disabled={cards.cardsCount === 0}
                                                         >
                                                             Learn
@@ -258,31 +258,34 @@ export const PacksListTable: FC<PacksListTableProps> = memo(props => {
                         )
                     }
                 </TableBody>
-                <TableFooter>
-                    <TableRow>
-                        <td className={s.footerPage}>
-                            Page: {packs.page} (Total:{Math.ceil(packs.cardPacksTotalCount / packs.pageCount)})
-                        </td>
-                        <TablePagination
-                            rowsPerPageOptions={[5, 10, 25, {
-                                label: 'All',
-                                value: packs.cardPacksTotalCount
-                            }]}
-                            colSpan={6}
-                            count={packs.cardPacksTotalCount}
-                            rowsPerPage={packs.pageCount}
-                            page={packs.page - 1}
-                            SelectProps={{
-                                inputProps: {'aria-label': 'rows per page'},
-                                native: true,
-                            }}
-                            labelRowsPerPage={props.labelRowsPerPage}
-                            onPageChange={handleChangePage}
-                            onRowsPerPageChange={handleChangePageCount}
-                            ActionsComponent={TablePaginationActions}
-                        />
-                    </TableRow>
-                </TableFooter>
+                {
+                    packs.cardPacksTotalCount > 5 &&
+                    <TableFooter>
+                        <TableRow>
+                            <td className={s.footerPage}>
+                                Page: {packs.page} (Total:{Math.ceil(packs.cardPacksTotalCount / packs.pageCount)})
+                            </td>
+                            <TablePagination
+                                rowsPerPageOptions={[5, 10, 25, {
+                                    label: 'All',
+                                    value: packs.cardPacksTotalCount
+                                }]}
+                                colSpan={6}
+                                count={packs.cardPacksTotalCount}
+                                rowsPerPage={packs.pageCount}
+                                page={packs.page - 1}
+                                SelectProps={{
+                                    inputProps: {'aria-label': 'rows per page'},
+                                    native: true,
+                                }}
+                                labelRowsPerPage={props.labelRowsPerPage}
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangePageCount}
+                                ActionsComponent={TablePaginationActions}
+                            />
+                        </TableRow>
+                    </TableFooter>
+                }
             </Table>
         </>
     )

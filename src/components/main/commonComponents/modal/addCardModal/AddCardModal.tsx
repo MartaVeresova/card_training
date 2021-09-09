@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, memo, useState} from 'react';
+import React, {ChangeEvent, FC, KeyboardEvent, memo, useCallback, useState} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import s from '../ModalWindow.module.css'
@@ -11,16 +11,20 @@ export const AddCardModal: FC<AddPackModalPropsType> = memo(({closeAddPackModal,
     const [question, setQuestion] = useState('')
     const [answer, setAnswer] = useState('')
 
-    const inputChangeHandlerQuestion = (e: ChangeEvent<HTMLInputElement>) => {
-        setQuestion(e.currentTarget.value)
-    }
-    const inputChangeHandlerAnswer = (e: ChangeEvent<HTMLInputElement>) => {
-        setAnswer(e.currentTarget.value)
-    }
-    const onButtonClickHandler = () => {
+    const onButtonClickHandler = useCallback(() => {
         addNewCard(question, answer)
         closeAddPackModal()
-    }
+    }, [question, answer, addNewCard, closeAddPackModal])
+
+    const onKeyPressHandler = useCallback((e: KeyboardEvent<HTMLDivElement>) =>
+        (e.key === 'Enter') && onButtonClickHandler(), [onButtonClickHandler])
+
+    const inputChangeHandlerQuestion = useCallback((e: ChangeEvent<HTMLInputElement>) =>
+        setQuestion(e.currentTarget.value), [])
+
+    const inputChangeHandlerAnswer = useCallback((e: ChangeEvent<HTMLInputElement>) =>
+        setAnswer(e.currentTarget.value), [])
+
     const onBackgroundClick = () => {
         closeAddPackModal()
     }
@@ -41,6 +45,7 @@ export const AddCardModal: FC<AddPackModalPropsType> = memo(({closeAddPackModal,
                     autoFocus
                     value={question}
                     onChange={inputChangeHandlerQuestion}
+                    onKeyPress={onKeyPressHandler}
                 />
                 <TextField
                     className={classes.answerInput}
@@ -49,6 +54,7 @@ export const AddCardModal: FC<AddPackModalPropsType> = memo(({closeAddPackModal,
                     variant="outlined"
                     value={answer}
                     onChange={inputChangeHandlerAnswer}
+                    onKeyPress={onKeyPressHandler}
                 />
                 <Button
                     className={classes.addNewCardModalButton}

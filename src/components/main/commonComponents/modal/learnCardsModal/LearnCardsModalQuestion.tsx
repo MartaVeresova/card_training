@@ -14,7 +14,6 @@ export const LearnCardsModalQuestion: FC<LearnCardsModalPropsType> = memo(props 
         closeAllModal()
     }
 
-
     return (
         <>
             <div className={s.darkWindow}
@@ -33,7 +32,7 @@ export const LearnCardsModalQuestion: FC<LearnCardsModalPropsType> = memo(props 
                 <Button
                     className={classes.showAnswerButton}
                     color="primary"
-                    variant='outlined'
+                    variant="outlined"
                     onClick={onAnswerButtonClick}
                 >
                     Show answer

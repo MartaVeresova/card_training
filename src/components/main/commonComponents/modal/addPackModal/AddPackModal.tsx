@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, memo, useState} from 'react';
+import React, {ChangeEvent, FC, KeyboardEvent, memo, useCallback, useState} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import s from '../ModalWindow.module.css'
@@ -10,13 +10,17 @@ export const AddPackModal: FC<AddPackModalPropsType> = memo(({closeAddPackModal,
     const classes = useStyles()
     const [text, setText] = useState('')
 
-    const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setText(e.currentTarget.value)
-    }
-    const onButtonClickHandler = () => {
+    const onButtonClickHandler = useCallback(() => {
         addNewPack(text)
         closeAddPackModal()
-    }
+    }, [text, addNewPack, closeAddPackModal])
+
+    const onKeyPressHandler = useCallback((e: KeyboardEvent<HTMLDivElement>) =>
+        (e.key === 'Enter') && onButtonClickHandler(), [onButtonClickHandler])
+
+    const inputChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) =>
+        setText(e.currentTarget.value), [])
+
     const onBackgroundClick = () => {
         closeAddPackModal()
     }
@@ -37,6 +41,7 @@ export const AddPackModal: FC<AddPackModalPropsType> = memo(({closeAddPackModal,
                     autoFocus
                     value={text}
                     onChange={inputChangeHandler}
+                    onKeyPress={onKeyPressHandler}
                 />
                 <Button color="primary"
                         variant="contained"

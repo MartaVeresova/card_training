@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, memo, useState} from 'react';
+import React, {ChangeEvent, FC, KeyboardEvent, memo, useCallback, useState} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import {EditCardRequestType, OnePackType} from '../../../../../dal/api';
@@ -12,16 +12,20 @@ export const EditCardModal: FC<EditPackModalPropsType> = memo(({closeAddPackModa
     const [question, setQuestion] = useState(card.question)
     const [answer, setAnswer] = useState(card.answer)
 
-    const inputChangeHandlerQuestion = (e: ChangeEvent<HTMLInputElement>) => {
-        setQuestion(e.currentTarget.value)
-    }
-    const inputChangeHandlerAnswer = (e: ChangeEvent<HTMLInputElement>) => {
-        setAnswer(e.currentTarget.value)
-    }
-    const onButtonClickHandler = () => {
+    const inputChangeHandlerQuestion = useCallback((e: ChangeEvent<HTMLInputElement>) =>
+        setQuestion(e.currentTarget.value), [])
+
+    const inputChangeHandlerAnswer = useCallback((e: ChangeEvent<HTMLInputElement>) =>
+        setAnswer(e.currentTarget.value), [])
+
+    const onButtonClickHandler = useCallback(() => {
         editCard({cardsPack_id: card.cardsPack_id, _id: card._id, answer, question})
         closeAddPackModal()
-    }
+    }, [card, answer, question, editCard, closeAddPackModal])
+
+    const onKeyPressHandler = useCallback((e: KeyboardEvent<HTMLDivElement>) =>
+        (e.key === 'Enter') && onButtonClickHandler(), [onButtonClickHandler])
+
     const onBackgroundClick = () => {
         closeAddPackModal()
     }
@@ -42,6 +46,7 @@ export const EditCardModal: FC<EditPackModalPropsType> = memo(({closeAddPackModa
                     autoFocus
                     value={question}
                     onChange={inputChangeHandlerQuestion}
+                    onKeyPress={onKeyPressHandler}
                 />
                 <TextField
                     className={classes.answerInput}
@@ -50,11 +55,12 @@ export const EditCardModal: FC<EditPackModalPropsType> = memo(({closeAddPackModa
                     variant="outlined"
                     value={answer}
                     onChange={inputChangeHandlerAnswer}
+                    onKeyPress={onKeyPressHandler}
                 />
                 <Button
                     className={classes.addNewCardModalButton}
                     color="primary"
-                    variant='outlined'
+                    variant="outlined"
                     onClick={onButtonClickHandler}>Save changes</Button>
             </div>
         </>

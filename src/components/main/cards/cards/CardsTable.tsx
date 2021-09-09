@@ -22,6 +22,14 @@ import emptyStarImg from '../../../../assets/images/Empty_Star.png'
 import blueStarImg from '../../../../assets/images/Blue_Star.png'
 
 
+const stars: RatingStarsType[] = [
+    {emptyImage: emptyStarImg, blueImage: blueStarImg, rating: 1},
+    {emptyImage: emptyStarImg, blueImage: blueStarImg, rating: 2},
+    {emptyImage: emptyStarImg, blueImage: blueStarImg, rating: 3},
+    {emptyImage: emptyStarImg, blueImage: blueStarImg, rating: 4},
+    {emptyImage: emptyStarImg, blueImage: blueStarImg, rating: 5},
+]
+
 export const CardsTable: FC<PackNameTableProps> = memo(({labelRowsPerPage}) => {
 
     const classes = useStyles()
@@ -44,6 +52,10 @@ export const CardsTable: FC<PackNameTableProps> = memo(({labelRowsPerPage}) => {
         dispatch(editCardTC({...data}))
     }, [dispatch])
 
+    const deleteCardHandler = useCallback((cardId: string) => {
+        dispatch(deleteCardTC(cards.cardsPack_id, cardId))
+    }, [dispatch, cards.cardsPack_id])
+
     const onClickSortHandler = (sortValue: SortByType) => {
         if (cards.sortCardDirection === 0) {
             dispatch(setPackTC({cardsPack_id: packID, sortCards: '1' + sortValue}))
@@ -52,21 +64,9 @@ export const CardsTable: FC<PackNameTableProps> = memo(({labelRowsPerPage}) => {
         }
     }
 
-    const deleteCardHandler = useCallback((cardId: string) => {
-        dispatch(deleteCardTC(cards.cardsPack_id, cardId))
-    }, [dispatch, cards.cardsPack_id])
-
     const handleChangePageCount = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         dispatch(setPackTC({cardsPack_id: packID, pageCount: parseInt(e.target.value, 10)}))
     }
-
-    const stars = [
-        {emptyImage: emptyStarImg, blueImage: blueStarImg, rating: 1},
-        {emptyImage: emptyStarImg, blueImage: blueStarImg, rating: 2},
-        {emptyImage: emptyStarImg, blueImage: blueStarImg, rating: 3},
-        {emptyImage: emptyStarImg, blueImage: blueStarImg, rating: 4},
-        {emptyImage: emptyStarImg, blueImage: blueStarImg, rating: 5},
-    ]
 
 
     return (
@@ -116,53 +116,59 @@ export const CardsTable: FC<PackNameTableProps> = memo(({labelRowsPerPage}) => {
             </TableHead>
             <TableBody>
                 {
-                    cards.cards.map((cards) =>
-                        <TableRow key={cards._id}>
-                            <TableCell component="th">{trimmedString(cards.question, 20)}</TableCell>
-                            <TableCell align="right">{trimmedString(cards.answer, 20)}</TableCell>
-                            <TableCell align="right">{updateDate(cards.updated)}</TableCell>
+                    cards.cards.map(card =>
+                        <TableRow key={card._id}>
+                            <TableCell component="th">{trimmedString(card.question, 20)}</TableCell>
+                            <TableCell align="right">{trimmedString(card.answer, 20)}</TableCell>
+                            <TableCell align="right">{updateDate(card.updated)}</TableCell>
                             <TableCell align="right">
                                 {
                                     stars.map(star =>
-                                        <img src={Math.round(cards.grade) >= star.rating ? star.blueImage : star.emptyImage} style={{width: '18px'}} alt='grades rating'/>)
+                                        <img key={star.rating.toString()}
+                                             src={Math.round(card.grade) >= star.rating ? star.blueImage : star.emptyImage}
+                                             style={{width: '18px'}}
+                                             alt="grades rating"/>
+                                    )
                                 }
                             </TableCell>
-                            {cards.user_id === idUser ?
-                                <CardsTableActions
+                            {card.user_id === idUser
+                                ? <CardsTableActions
                                     deleteCard={deleteCardHandler}
                                     editCard={editCardHandler}
-                                    card={cards}
-                                />
+                                    card={card}/>
                                 : <TableCell/>}
                         </TableRow>
-                    )}
+                    )
+                }
             </TableBody>
-            <TableFooter>
-                <TableRow>
-                    <td className={s.footerPage}>
-                        Page: {cards.page} (Total:{Math.ceil(cards.cardsTotalCount / cards.pageCount)})
-                    </td>
-                    <TablePagination
-                        rowsPerPageOptions={[5, 10, 25, {
-                            label: 'All',
-                            value: cards.cardsTotalCount
-                        }]}
-                        colSpan={6}
-                        count={cards.cardsTotalCount}
-                        rowsPerPage={cards.pageCount}
-                        page={cards.page - 1}
-                        SelectProps={{
-                            inputProps: {'aria-label': 'rows per page'},
-                            native: true,
-                        }}
-                        labelRowsPerPage={labelRowsPerPage}
-                        onPageChange={handleChangePage}
-                        onRowsPerPageChange={handleChangePageCount}
-                        ActionsComponent={TablePaginationActions}
-                    />
-                </TableRow>
-            </TableFooter>
-
+            {
+                cards.cardsTotalCount > 5 &&
+                <TableFooter>
+                    <TableRow>
+                        <td className={s.footerPage}>
+                            Page: {cards.page} (Total:{Math.ceil(cards.cardsTotalCount / cards.pageCount)})
+                        </td>
+                        <TablePagination
+                            rowsPerPageOptions={[5, 10, 25, {
+                                label: 'All',
+                                value: cards.cardsTotalCount
+                            }]}
+                            colSpan={6}
+                            count={cards.cardsTotalCount}
+                            rowsPerPage={cards.pageCount}
+                            page={cards.page - 1}
+                            SelectProps={{
+                                inputProps: {'aria-label': 'rows per page'},
+                                native: true,
+                            }}
+                            labelRowsPerPage={labelRowsPerPage}
+                            onPageChange={handleChangePage}
+                            onRowsPerPageChange={handleChangePageCount}
+                            ActionsComponent={TablePaginationActions}
+                        />
+                    </TableRow>
+                </TableFooter>
+            }
         </Table>
     )
 })
@@ -170,6 +176,11 @@ export const CardsTable: FC<PackNameTableProps> = memo(({labelRowsPerPage}) => {
 type SortByType = 'question' | 'answer' | 'updated' | 'grade'
 type PackNameTableProps = {
     labelRowsPerPage: string
+}
+type RatingStarsType = {
+    emptyImage: string
+    blueImage: string
+    rating: number
 }
 
 const useStyles = makeStyles(() =>

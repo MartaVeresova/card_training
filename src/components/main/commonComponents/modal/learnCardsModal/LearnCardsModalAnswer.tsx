@@ -69,25 +69,24 @@ export const LearnCardsModalAnswer: FC<LearnCardsModalPropsType> = memo(props =>
                 <FormGroup aria-label="position"
                            className={classes.optionsForRateYourself}>
                     {
-                        arrayOfGrades.map((el, i) => {
-                            return <FormControlLabel
-                                key={i}
-                                name="myRadio"
-                                control={<Radio name="myRadio"
-                                                color="primary"
-                                                checked={el.valueOfGrade === grade}
-                                                onClick={() => onChangeCallback(el.valueOfGrade)}/>}
-                                label={el.title}
-                                labelPlacement="end"
+                        arrayOfGrades.map(el =>
+                            <FormControlLabel key={el.valueOfGrade.toString()}
+                                              name="myRadio"
+                                              label={el.title}
+                                              labelPlacement="end"
+                                              control={<Radio name="myRadio"
+                                                              color="primary"
+                                                              checked={el.valueOfGrade === grade}
+                                                              onClick={() => onChangeCallback(el.valueOfGrade)}/>}
                             />
-                        })
+                        )
                     }
                 </FormGroup>
 
                 <Button
                     className={classes.nextQuestionButton}
                     color="primary"
-                    variant='outlined'
+                    variant="outlined"
                     onClick={nextButtonClickHandler}
                 >
                     Next

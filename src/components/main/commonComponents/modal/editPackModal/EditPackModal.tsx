@@ -1,4 +1,4 @@
-import React, {ChangeEvent, FC, memo, useState} from 'react';
+import React, {ChangeEvent, FC, KeyboardEvent, memo, useCallback, useState} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import s from '../ModalWindow.module.css'
@@ -10,13 +10,17 @@ export const EditPackModal: FC<AddPackModalPropsType> = memo(({oldName, closeEdi
     const classes = useStyles()
     const [newName, setNewName] = useState(oldName)
 
-    const inputChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setNewName(e.currentTarget.value)
-    }
-    const onButtonClickHandler = () => {
+    const inputChangeHandler = useCallback((e: ChangeEvent<HTMLInputElement>) =>
+        setNewName(e.currentTarget.value), [])
+
+    const onButtonClickHandler = useCallback(() => {
         updatePackName(newName)
         closeEditPackModal()
-    }
+    }, [newName, updatePackName, closeEditPackModal])
+
+    const onKeyPressHandler = useCallback((e: KeyboardEvent<HTMLDivElement>) =>
+        (e.key === 'Enter') && onButtonClickHandler(), [onButtonClickHandler])
+
     const onBackgroundClick = () => {
         closeEditPackModal()
     }
@@ -30,17 +34,17 @@ export const EditPackModal: FC<AddPackModalPropsType> = memo(({oldName, closeEdi
             <div className={s.windowByAddDeletePack}>
                 <h2>Enter new name of pack</h2>
                 <TextField
-
                     className={classes.addEditPackInput}
-                    variant='outlined'
+                    variant="outlined"
                     margin="none"
                     label="New name"
                     autoFocus
                     value={newName}
                     onChange={inputChangeHandler}
+                    onKeyPress={onKeyPressHandler}
                 />
                 <Button color="primary"
-                        variant='outlined'
+                        variant="outlined"
                         onClick={onButtonClickHandler}>RENAME</Button>
             </div>
         </>
