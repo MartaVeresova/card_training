@@ -18,6 +18,8 @@ import {EditCardRequestType} from '../../../../dal/api';
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 import s from '../Cards.module.css'
 import {createStyles, makeStyles} from '@material-ui/core/styles';
+import emptyStarImg from '../../../../assets/images/Empty_Star.png'
+import blueStarImg from '../../../../assets/images/Blue_Star.png'
 
 
 export const CardsTable: FC<PackNameTableProps> = memo(({labelRowsPerPage}) => {
@@ -57,6 +59,14 @@ export const CardsTable: FC<PackNameTableProps> = memo(({labelRowsPerPage}) => {
     const handleChangePageCount = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         dispatch(setPackTC({cardsPack_id: packID, pageCount: parseInt(e.target.value, 10)}))
     }
+
+    const stars = [
+        {emptyImage: emptyStarImg, blueImage: blueStarImg, rating: 1},
+        {emptyImage: emptyStarImg, blueImage: blueStarImg, rating: 2},
+        {emptyImage: emptyStarImg, blueImage: blueStarImg, rating: 3},
+        {emptyImage: emptyStarImg, blueImage: blueStarImg, rating: 4},
+        {emptyImage: emptyStarImg, blueImage: blueStarImg, rating: 5},
+    ]
 
 
     return (
@@ -111,7 +121,12 @@ export const CardsTable: FC<PackNameTableProps> = memo(({labelRowsPerPage}) => {
                             <TableCell component="th">{trimmedString(cards.question, 20)}</TableCell>
                             <TableCell align="right">{trimmedString(cards.answer, 20)}</TableCell>
                             <TableCell align="right">{updateDate(cards.updated)}</TableCell>
-                            <TableCell align="right">{Math.round(cards.grade)}</TableCell>
+                            <TableCell align="right">
+                                {
+                                    stars.map(star =>
+                                        <img src={Math.round(cards.grade) >= star.rating ? star.blueImage : star.emptyImage} style={{width: '18px'}} alt='grades rating'/>)
+                                }
+                            </TableCell>
                             {cards.user_id === idUser ?
                                 <CardsTableActions
                                     deleteCard={deleteCardHandler}

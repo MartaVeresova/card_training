@@ -25,7 +25,7 @@ export const CardsTableActions: FC<PackTableActionsPropsType> = memo(props => {
 
     const onDeleteButtonClick = useCallback(() => {
         deleteCard(card._id)
-    }, [card])
+    }, [card, deleteCard])
 
     const openEditPackModal = () => {
         setEditPackModal(true)

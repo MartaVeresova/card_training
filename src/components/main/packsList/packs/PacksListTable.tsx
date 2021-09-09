@@ -233,20 +233,20 @@ export const PacksListTable: FC<PacksListTableProps> = memo(props => {
                                                         <span>
                                                             <Button
                                                                 onClick={() => openDeletePackModal(cards._id, cards.name)}
-                                                                size={'small'}
-                                                                variant={'outlined'}
-                                                                color={'secondary'}>Delete</Button>
+                                                                size='small'
+                                                                variant='outlined'
+                                                                color='secondary'>Delete</Button>
                                                             <Button
                                                                 onClick={() => openEditPackModal(cards._id, cards.name)}
-                                                                size={'small'}
-                                                                variant={'outlined'}
+                                                                size='small'
+                                                                variant='outlined'
                                                                 style={{margin: '0 10px'}}>Edit</Button>
                                                         </span>
                                                         }
                                                         <Button
                                                             onClick={() => startLearning(cards._id, cards.cardsCount, cards.name)}
-                                                            size={'small'}
-                                                            variant={'outlined'}
+                                                            size='small'
+                                                            variant='outlined'
                                                             disabled={cards.cardsCount === 0}
                                                         >
                                                             Learn
