@@ -185,7 +185,7 @@ export const PacksListTable: FC<PacksListTableProps> = memo(props => {
                                 Name
                             </TableSortLabel>
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell align="left">
                             <TableSortLabel
                                 active={packs.sortBy === 'cardsCount'}
                                 direction={packs.sortPacksDirection === 1 ? 'desc' : 'asc'}
@@ -194,7 +194,7 @@ export const PacksListTable: FC<PacksListTableProps> = memo(props => {
                                 Cards
                             </TableSortLabel>
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell align="left">
                             <TableSortLabel
                                 active={packs.sortBy === 'updated'}
                                 direction={packs.sortPacksDirection === 1 ? 'desc' : 'asc'}
@@ -203,7 +203,7 @@ export const PacksListTable: FC<PacksListTableProps> = memo(props => {
                                 Last Updated
                             </TableSortLabel>
                         </TableCell>
-                        <TableCell align="right">
+                        <TableCell align="left">
                             <TableSortLabel
                                 active={packs.sortBy === 'created'}
                                 direction={packs.sortPacksDirection === 1 ? 'desc' : 'asc'}
@@ -212,21 +212,21 @@ export const PacksListTable: FC<PacksListTableProps> = memo(props => {
                                 Created By
                             </TableSortLabel>
                         </TableCell>
-                        <TableCell align="right">Actions</TableCell>
+                        <TableCell align="center">Actions</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
                     {
                         packs.cardPacks.map((cards) => (
                                 <TableRow key={cards._id}>
-                                    <TableCell component="th">
+                                    <TableCell component="th" title={cards.name}>
                                         <NavLink to={`/pack/${cards._id}`} className={classes.packsListTableBodyNavLink}>
                                             {trimmedString(cards.name, 10)}
                                         </NavLink>
                                     </TableCell>
-                                    <TableCell align="right">{cards.cardsCount}</TableCell>
-                                    <TableCell align="right">{updateDate(cards.updated)}</TableCell>
-                                    <TableCell align="right">{trimmedString(cards.user_name, 10)}</TableCell>
+                                    <TableCell align="left">{cards.cardsCount}</TableCell>
+                                    <TableCell align="left">{updateDate(cards.updated)}</TableCell>
+                                    <TableCell align="left" title={cards.user_name}>{trimmedString(cards.user_name, 10)}</TableCell>
                                     <TableCell align="right" style={{width: '224px'}}>
                                                     <span className={classes.packsListTableBodyActionsSection}>
                                                         {cards.user_id === id &&

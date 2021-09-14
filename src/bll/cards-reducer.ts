@@ -2,10 +2,10 @@ import {AppRootStateType, AppThunk} from './store';
 import {setAppErrorAC, setAppStatusAC} from './app-reducer';
 import {
     cardPacksApi,
+    CardsRequestType,
     CreateCardType,
     EditCardRequestType,
     OnePackType,
-    CardsRequestType,
     PackResponseType
 } from '../dal/api';
 import {cardsApiModel} from '../utils/cardsApiModel-util';
@@ -29,6 +29,7 @@ const initialState = {
     currentPackName: 'Pack name',
     searchTextAnswer: '',
     searchTexQuestion: '',
+    showTitle: false,
 } as CardsInitialStateType
 
 
@@ -50,6 +51,11 @@ export const cardsReducer = (state = initialState, action: PackActionsType): Car
                 ...state,
                 cards: [],
             }
+        case 'cards/SHOW-TITLE':
+            return {
+                ...state,
+                showTitle: action.value
+            }
 
         default:
             return state
@@ -61,6 +67,8 @@ export const setPackAC = (data: PackResponseType & NewPackApiModelType) =>
     ({type: 'cards/SET-PACK', data} as const)
 export const resetPackAC = () =>
     ({type: 'cards/RESET-PACK'} as const)
+export const showTitleAC = (value: boolean) =>
+    ({type: 'cards/SHOW-TITLE', value} as const)
 
 
 //thunks
@@ -77,6 +85,7 @@ export const setPackTC = (data: CardsRequestType): AppThunk =>
         try {
             const res = await cardPacksApi.fetchPack({...newPackApiModel, page: newPage})
             dispatch(setPackAC({...res.data, ...newPackApiModel, page: newPage}))
+            dispatch(showTitleAC(true))
         } catch (err) {
             dispatch(setAppErrorAC(err.response ? err.response.data.error : err.message))
         } finally {
@@ -130,6 +139,7 @@ export type CardsInitialStateType = PackResponseType & {
     currentPackName: string
     searchTextAnswer: string
     searchTexQuestion: string
+    showTitle: boolean
 }
 type NewPackApiModelType = {
     cardAnswer: string
@@ -143,8 +153,10 @@ type NewPackApiModelType = {
 }
 
 export type SetPackActionType = ReturnType<typeof setPackAC>
-export type resetPackActionType = ReturnType<typeof resetPackAC>
+export type ResetPackActionType = ReturnType<typeof resetPackAC>
+export type ShowTitleActionType = ReturnType<typeof showTitleAC>
 
 export type PackActionsType =
     | SetPackActionType
-    | resetPackActionType
+    | ResetPackActionType
+    | ShowTitleActionType

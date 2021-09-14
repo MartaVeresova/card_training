@@ -6,7 +6,7 @@ import {Input} from '../commonComponents/Input';
 import TableContainer from '@material-ui/core/TableContainer';
 import {ErrorSnackbar} from '../../../features/errors/ErrorSnackbar';
 import {useDispatch, useSelector} from 'react-redux';
-import {CardsInitialStateType, createCardTC, setPackTC} from '../../../bll/cards-reducer';
+import {CardsInitialStateType, createCardTC, setPackTC, showTitleAC} from '../../../bll/cards-reducer';
 import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
 import {CardsTable} from './cards/CardsTable';
 import {useHistory, useLocation} from 'react-router-dom';
@@ -31,10 +31,10 @@ export const Cards: FC = memo(() => {
     const cardsPack_id = cards.cardsPack_id
     const idUser = useSelector<AppRootStateType, string>(state => state.profile._id)
 
-    const [cardQuestion, setCardQuestion] = useState<string>('')
-    const [cardAnswer, setCardAnswer] = useState<string>('')
+    const [cardQuestion, setCardQuestion] = useState('')
+    const [cardAnswer, setCardAnswer] = useState('')
     const [intervalId, setIntervalId] = useState<NodeJS.Timeout>()
-    const [addPackModal, setAddPackModal] = useState<boolean>(false)
+    const [addPackModal, setAddPackModal] = useState(false)
 
     let packName = cards.currentPackName
     if (packs.cardPacks.length) {
@@ -51,6 +51,7 @@ export const Cards: FC = memo(() => {
         return function () {
             setCardQuestion('')
             setCardAnswer('')
+            dispatch(showTitleAC(false))
         }
     }, [dispatch, packID])
 
@@ -103,14 +104,11 @@ export const Cards: FC = memo(() => {
             <Paper className={classes.paper}>
                 <ProgressModalComponent/>
                 <Container className={classes.body}>
-                    <div className={s.arrowBackToPacks}
-                         onClick={onClickHandler}>
-                        <KeyboardBackspaceIcon/>
-                        <div className={s.titleBackToPacks}>
-                            <h3>Back to packs</h3>
-                        </div>
+                    <div className={s.backToPackAndTitle}>
+                        <KeyboardBackspaceIcon onClick={onClickHandler} style={{cursor: 'pointer'}}/>
+                        <h3 className={s.titleBackToPacks}>Back to packs</h3>
+                        <div className={s.packListHeading}>{trimmedString(packName, 50)}</div>
                     </div>
-                    <div className={s.packListHeading}>{trimmedString(packName, 50)}</div>
                     <div className={s.inputButtonSection}>
                         <Input
                             placeholderValue={'Search by questions'}
@@ -132,14 +130,19 @@ export const Cards: FC = memo(() => {
                             Add new card
                         </Button>
                     </div>
+
                     {
-                        !cards.cards.length
-                            ? <div className={s.titleOfEmptyPack}>
-                                <p>This pack is empty. Click Add new card to fill this pack.</p>
-                        </div>
-                            : <TableContainer className={classes.packsCardsFooter} component={Paper}>
-                                <CardsTable labelRowsPerPage={'Cards per page'}/>
-                            </TableContainer>
+                        cards.showTitle
+                            ? cards.cardsTotalCount > 0
+                                ? <TableContainer className={classes.packsCardsFooter} component={Paper}>
+                                        <CardsTable labelRowsPerPage={'Cards per page'}/>
+                                    </TableContainer>
+                                : <div className={s.titleOfEmptyPack}>
+                                    {cards.packUserId === idUser
+                                        ? <p>This pack is empty. Click Add new card to fill this pack.</p>
+                                        : <p>This pack is empty. Wait for it to fill up.</p>}
+                                </div>
+                            : null
                     }
                 </Container>
             </Paper>

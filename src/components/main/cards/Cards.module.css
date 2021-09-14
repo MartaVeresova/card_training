@@ -1,7 +1,14 @@
-.arrowBackToPacks {
-    display: inline-flex;
+.backToPackAndTitle {
+    position: relative;
+    display: flex;
     align-items: center;
-    cursor: pointer;
+    justify-content: flex-start;
+}
+.backToPackAndTitle div {
+    position: relative;
+    bottom: 21px;
+    left: 38%;
+    transform: translate(-50%, 50%);
 }
 
 .titleBackToPacks {
@@ -12,6 +19,7 @@
     font-size: 30px;
     font-weight: bold;
     overflow-wrap: break-word;
+    display: block;
 }
 
 .inputButtonSection {
