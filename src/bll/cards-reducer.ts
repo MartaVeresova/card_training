@@ -92,7 +92,6 @@ export const setPackTC = (data: CardsRequestType): AppThunk =>
             dispatch(setAppStatusAC('succeeded'))
         }
     }
-
 export const createCardTC = (data: CreateCardType): AppThunk =>
     async (dispatch) => {
         dispatch(setAppStatusAC('loading'))
