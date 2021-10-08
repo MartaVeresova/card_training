@@ -31,7 +31,6 @@ import {DeletePackModal} from '../../commonComponents/modal/deletePackModal/Dele
 
 
 const getCard = (cards: OnePackType[]) => {
-    //const sumOfRepeats = cards.map(card => (6 - card.grade) ** 2).reduce((acc, el) => (acc + el), 0)
     const sumOfRepeats = cards.reduce((acc, card) => (acc + (6 - card.grade) ** 2), 0)
     const random = Math.random() * sumOfRepeats
     let sum = 0
