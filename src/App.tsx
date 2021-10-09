@@ -1,5 +1,5 @@
 import React, {FC, memo, useEffect} from 'react';
-import {NavLink, Redirect, Route, Switch} from 'react-router-dom';
+import {Redirect, Route, Switch} from 'react-router-dom';
 import './App.css';
 import {Registration} from './components/auth/Registration';
 import {Login} from './components/auth/Login';
@@ -15,7 +15,6 @@ import {Error404} from './features/error404/Error404';
 import {Header} from './components/header/Header';
 import {Cards} from './components/main/cards/Cards';
 import {PacksList} from './components/main/packsList/PacksList';
-import {logoutTC} from './bll/auth-reducer';
 
 
 const App: FC = memo(() => {
@@ -23,7 +22,6 @@ const App: FC = memo(() => {
     const dispatch = useDispatch();
     const isInitialized = useSelector<AppRootStateType, boolean>(state => state.app.isInitialized)
     const isLoggedIn = useSelector<AppRootStateType, boolean>(state => state.auth.isLoggedIn)
-    const isRegistered = useSelector<AppRootStateType, boolean>(state => state.auth.isRegistered)
 
     useEffect(() => {
         dispatch(initializeAppTC())
@@ -35,24 +33,9 @@ const App: FC = memo(() => {
             <CircularProgress/>
         </div>
     }
-    const obLogOutClick = () => {
-        dispatch(logoutTC())
-    }
 
     return (
         <>
-            <div>
-                <button><NavLink to="/">Home</NavLink></button>
-                <button><NavLink to="/">Main</NavLink></button>
-                <button><NavLink to="/registration">Register</NavLink></button>
-                <button><NavLink to="/login">Login</NavLink></button>
-                <button><NavLink to="/changepassword">Change Password</NavLink></button>
-                <button><NavLink to="/profile">Profile</NavLink></button>
-                <span style={{color: `${isInitialized ? 'green' : 'red'}`}}> (INITIALIZED) </span>
-                <span style={{color: `${isLoggedIn ? 'green' : 'red'}`}}> (LOGIN) </span>
-                <span style={{color: `${isRegistered ? 'green' : 'red'}`}}> (REGISTERED) </span>
-                <button onClick={obLogOutClick}>LOGOUT</button>
-            </div>
             <Header/>
             <div>
                 <Switch>

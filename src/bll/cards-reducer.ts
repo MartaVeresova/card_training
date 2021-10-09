@@ -51,6 +51,7 @@ export const cardsReducer = (state = initialState, action: PackActionsType): Car
                 ...state,
                 cards: [],
             }
+
         case 'cards/SHOW-TITLE':
             return {
                 ...state,
@@ -100,7 +101,6 @@ export const createCardTC = (data: CreateCardType): AppThunk =>
             dispatch(setPackTC({cardsPack_id: data.cardsPack_id, page: 1, sortCards: '0updated',}))
         } catch (err) {
             dispatch(setAppErrorAC(err.response ? err.response.data.error : err.message))
-        } finally {
         }
     }
 export const deleteCardTC = (cardsPack_id: string, cardId: string): AppThunk =>
@@ -111,7 +111,6 @@ export const deleteCardTC = (cardsPack_id: string, cardId: string): AppThunk =>
             dispatch(setPackTC({cardsPack_id}))
         } catch (err) {
             dispatch(setAppErrorAC(err.response ? err.response.data.error : err.message))
-        } finally {
         }
     }
 export const editCardTC = (data: EditCardRequestType): AppThunk =>
@@ -122,7 +121,6 @@ export const editCardTC = (data: EditCardRequestType): AppThunk =>
             dispatch(setPackTC({cardsPack_id: data.cardsPack_id}))
         } catch (err) {
             dispatch(setAppErrorAC(err.response ? err.response.data.error : err.message))
-        } finally {
         }
     }
 
