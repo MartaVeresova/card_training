@@ -30,5 +30,6 @@ export type AppRootActionsType =
 
 export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, AppRootActionsType>
 
+
 // @ts-ignore
 window.store = store;
